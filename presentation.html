@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Build Bootcamp & Hackathon 2026 – BIMTECH × Reskilll</title>
+  <meta name="description" content="AI Build Bootcamp & Hackathon 2026 at BIMTECH – Empowering Future Managers with AI Skills in collaboration with Reskilll." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --blue-deep:   #060d2b;
+      --blue-mid:    #0a1a5c;
+      --blue-bright: #1a4fff;
+      --cyan:        #00d4ff;
+      --purple:      #7c3aed;
+      --gold:        #f5c842;
+      --white:       #ffffff;
+      --white-80:    rgba(255,255,255,.80);
+      --white-50:    rgba(255,255,255,.50);
+      --white-20:    rgba(255,255,255,.20);
+      --white-10:    rgba(255,255,255,.10);
+      --card-bg:     rgba(255,255,255,.07);
+      --card-border: rgba(0,212,255,.25);
+      --glow-blue:   0 0 40px rgba(0,212,255,.35);
+      --glow-purple: 0 0 40px rgba(124,58,237,.4);
+      --radius-lg:   20px;
+      --radius-md:   14px;
+      --transition:  .55s cubic-bezier(.4,0,.2,1);
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: var(--blue-deep);
+      font-family: 'Outfit', sans-serif;
+      color: var(--white);
+    }
+
+    /* ─── PARTICLES CANVAS ─────────────────────────────────────────── */
+    #particle-canvas {
+      position: fixed; inset: 0; z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ─── GRID / STAGE ─────────────────────────────────────────────── */
+    #app {
+      position: fixed; inset: 0; z-index: 1;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      grid-template-columns: 1fr 340px;
+      grid-template-areas:
+        "slide  avatar"
+        "controls controls";
+      gap: 0;
+    }
+
+    /* ─── SLIDE AREA ───────────────────────────────────────────────── */
+    #slide-container {
+      grid-area: slide;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 28px 20px 40px;
+      overflow: hidden;
+    }
+
+    /* Background glow blob */
+    #slide-container::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(26,79,255,.18) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      pointer-events: none;
+    }
+
+    .slide {
+      display: none;
+      flex-direction: column;
+      justify-content: flex-start;
+      width: 100%; max-width: 860px;
+      height: 100%;
+      animation: slideIn .55s cubic-bezier(.4,0,.2,1);
+      position: relative;
+      z-index: 2;
+    }
+    .slide.active { display: flex; }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(32px) scale(.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes slideOut {
+      from { opacity: 1; transform: translateY(0); }
+      to   { opacity: 0; transform: translateY(-24px); }
+    }
+
+    /* ─── SLIDE COMPONENTS ─────────────────────────────────────────── */
+    .slide-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,212,255,.12);
+      border: 1px solid rgba(0,212,255,.4);
+      border-radius: 30px;
+      padding: 6px 18px;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 18px;
+      width: fit-content;
+    }
+    .slide-badge .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      animation: pulseDot 1.6s infinite;
+    }
+    @keyframes pulseDot {
+      0%,100% { transform: scale(1); opacity:1; }
+      50% { transform: scale(1.5); opacity:.5; }
+    }
+
+    .slide h1 {
+      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #fff 30%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+    .slide h2 {
+      font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+      font-weight: 800;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #fff 40%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--cyan);
+      letter-spacing: .04em;
+      margin-bottom: 6px;
+    }
+    .date-badge {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      background: linear-gradient(90deg, rgba(124,58,237,.25), rgba(26,79,255,.2));
+      border: 1px solid rgba(124,58,237,.4);
+      border-radius: 8px;
+      padding: 8px 18px;
+      font-size: .92rem;
+      font-weight: 600;
+      color: #c4aaff;
+      margin-bottom: 24px;
+    }
+
+    .divider {
+      width: 64px; height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--blue-bright));
+      border-radius: 2px;
+      margin-bottom: 20px;
+    }
+
+    .glass-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 22px 26px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      margin-bottom: 16px;
+    }
+    .glass-card h3 {
+      font-size: 1.0rem;
+      font-weight: 700;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .glass-card h3 .icon { font-size: 1.1em; }
+    .glass-card p {
+      font-size: .93rem;
+      line-height: 1.7;
+      color: var(--white-80);
+    }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+    ul.bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    ul.bullet-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: .91rem;
+      color: var(--white-80);
+      line-height: 1.5;
+    }
+    ul.bullet-list li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      margin-top: 6px;
+      box-shadow: 0 0 8px var(--cyan);
+    }
+
+    .outcome-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(0,212,255,.10);
+      border: 1px solid rgba(0,212,255,.3);
+      border-radius: 6px;
+      padding: 7px 14px;
+      font-size: .84rem;
+      font-weight: 600;
+      color: var(--cyan);
+    }
+    .outcome-tag span { color: #4ade80; font-size: 1.05em; }
+
+    .outcomes-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 10px;
+    }
+
+    .day-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+    }
+    .day-card .day-label {
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--cyan);
+      margin-bottom: 8px;
+    }
+    .day-card h4 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .arrow-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .flow-step {
+      background: rgba(124,58,237,.2);
+      border: 1px solid rgba(124,58,237,.4);
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: .84rem;
+      font-weight: 600;
+      color: #c4aaff;
+      text-align: center;
+      width: 100%;
+    }
+    .flow-arrow {
+      color: var(--cyan);
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .pitch-card {
+      background: linear-gradient(135deg, rgba(124,58,237,.2), rgba(26,79,255,.15));
+      border: 1px solid rgba(124,58,237,.5);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      text-align: center;
+    }
+    .pitch-card .pitch-date {
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .pitch-card h4 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .benefit-pill {
+      background: rgba(245,200,66,.10);
+      border: 1px solid rgba(245,200,66,.3);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .vision-quote {
+      background: linear-gradient(135deg, rgba(124,58,237,.18), rgba(0,212,255,.08));
+      border-left: 4px solid var(--cyan);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 18px 22px;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--white-80);
+      margin: 16px 0;
+    }
+
+    .journey-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 16px 0;
+    }
+    .journey-step {
+      background: rgba(26,79,255,.2);
+      border: 1px solid rgba(26,79,255,.5);
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--cyan);
+      text-align: center;
+      white-space: nowrap;
+    }
+    .journey-arrow {
+      color: var(--white-50);
+      font-size: 1rem;
+    }
+
+    .stat-pill {
+      background: linear-gradient(135deg, rgba(0,212,255,.12), rgba(26,79,255,.12));
+      border: 1px solid rgba(0,212,255,.3);
+      border-radius: 10px;
+      padding: 14px 16px;
+      text-align: center;
+    }
+    .stat-pill .num {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--cyan);
+      line-height: 1;
+    }
+    .stat-pill .label {
+      font-size: .75rem;
+      font-weight: 500;
+      color: var(--white-60, rgba(255,255,255,.6));
+      margin-top: 4px;
+    }
+
+    /* ─── AVATAR PANEL ─────────────────────────────────────────────── */
+    #avatar-panel {
+      grid-area: avatar;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 20px 20px 0 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #avatar-panel::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(0,212,255,.18) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .avatar-ring {
+      position: relative;
+      width: 260px;
+      height: 370px;
+      flex-shrink: 0;
+    }
+
+    .avatar-ring::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--cyan), var(--blue-bright), var(--purple));
+      animation: ringRotate 4s linear infinite;
+      z-index: 0;
+    }
+    @keyframes ringRotate {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    #avatar-img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 18px;
+      display: block;
+      /* Subtle breathing idle movement by default */
+      animation: avatarIdle 6s ease-in-out infinite;
+      transform-origin: bottom center;
+      transition: all 0.5s ease;
+    }
+
+    /* Active speaking body movement when speaking */
+    .avatar-ring.speaking #avatar-img {
+      animation: avatarSpeaking 4s ease-in-out infinite;
+    }
+
+    @keyframes avatarIdle {
+      0%, 100% { transform: scale(1) translateY(0) rotate(0deg); }
+      50% { transform: scale(1.012) translateY(-3px) rotate(0.3deg); }
+    }
+
+    @keyframes avatarSpeaking {
+      0%, 100% { transform: scale(1.02) translateY(-2px) rotate(-0.5deg); }
+      25% { transform: scale(1.028) translateY(-5px) rotate(0.5deg); }
+      50% { transform: scale(1.022) translateY(-2px) rotate(-0.3deg); }
+      75% { transform: scale(1.03) translateY(-4px) rotate(0.8deg); }
+    }
+
+
+    /* Mouth / lip sync overlay */
+    .mouth-overlay {
+      position: absolute;
+      bottom: 18%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      pointer-events: none;
+    }
+    .sound-bar {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 24px;
+    }
+    .sound-bar .bar {
+      width: 4px;
+      height: 4px;
+      border-radius: 3px;
+      background: linear-gradient(to top, var(--cyan), var(--blue-bright));
+      opacity: 0.3;
+      transition: height 0.06s ease, opacity 0.06s ease;
+    }
+
+    /* speech bubble */
+    #speech-bubble {
+      position: absolute;
+      top: 10px; left: 0; right: 0;
+      margin: 0 10px;
+      background: rgba(6,13,43,.88);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 12px 15px;
+      font-size: .78rem;
+      line-height: 1.55;
+      color: var(--white-80);
+      backdrop-filter: blur(10px);
+      min-height: 90px;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    #speech-bubble .speaker-name {
+      font-weight: 700;
+      font-size: .7rem;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 5px;
+    }
+    #speech-text {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* typing cursor */
+    .cursor {
+      display: inline-block;
+      width: 2px; height: 14px;
+      background: var(--cyan);
+      vertical-align: middle;
+      margin-left: 2px;
+      animation: blink .7s step-start infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* avatar name badge */
+    .avatar-name {
+      position: absolute;
+      bottom: 6px; left: 0; right: 0;
+      text-align: center;
+      font-size: .76rem;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    /* ─── CONTROLS BAR ─────────────────────────────────────────────── */
+    #controls {
+      grid-area: controls;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 14px 40px 20px;
+      background: linear-gradient(to top, rgba(6,13,43,.95), transparent);
+      position: relative;
+      z-index: 10;
+    }
+
+    .ctrl-btn {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.18);
+      color: var(--white);
+      border-radius: 50px;
+      padding: 10px 22px;
+      font-family: 'Outfit', sans-serif;
+      font-size: .88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .25s ease;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .ctrl-btn:hover {
+      background: rgba(0,212,255,.15);
+      border-color: rgba(0,212,255,.5);
+      color: var(--cyan);
+      box-shadow: 0 0 20px rgba(0,212,255,.2);
+    }
+    .ctrl-btn:disabled {
+      opacity: .3;
+      cursor: not-allowed;
+    }
+    .ctrl-btn.primary {
+      background: linear-gradient(135deg, var(--blue-bright), var(--purple));
+      border: none;
+      padding: 12px 30px;
+      font-size: .95rem;
+    }
+    .ctrl-btn.primary:hover {
+      filter: brightness(1.2);
+      box-shadow: var(--glow-purple);
+    }
+
+    #slide-counter {
+      background: rgba(0,212,255,.1);
+      border: 1px solid rgba(0,212,255,.2);
+      border-radius: 20px;
+      padding: 8px 20px;
+      font-size: .84rem;
+      font-weight: 600;
+      color: var(--cyan);
+    }
+
+    /* progress dots */
+    #progress-dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .prog-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.2);
+      transition: all .3s ease;
+      cursor: pointer;
+    }
+    .prog-dot.active {
+      background: var(--cyan);
+      width: 28px;
+      border-radius: 4px;
+      box-shadow: 0 0 10px var(--cyan);
+    }
+
+    /* speak toggle */
+    #speak-toggle {
+      position: fixed;
+      top: 20px; right: 20px;
+      z-index: 100;
+    }
+    #speak-toggle .ctrl-btn {
+      padding: 10px 16px;
+      font-size: .82rem;
+    }
+
+    /* slide number badge */
+    .slide-num {
+      position: absolute;
+      top: 24px; right: 24px;
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: rgba(0,212,255,.15);
+      border: 1px solid rgba(0,212,255,.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .8rem;
+      font-weight: 800;
+      color: var(--cyan);
+    }
+
+    /* Fullscreen mode hint */
+    #fullscreen-hint {
+      position: fixed; bottom: 80px; right: 20px;
+      font-size: .7rem;
+      color: var(--white-50);
+      z-index: 5;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 5px;
+    }
+
+    /* Accessibility – reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="particle-canvas"></canvas>
+
+<div id="speak-toggle" style="display: flex; gap: 8px; align-items: center;">
+  <span id="voice-badge" style="background: rgba(6,13,43,0.85); border: 1px solid rgba(0,212,255,0.4); color: var(--cyan); padding: 10px 16px; border-radius: 20px; font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
+    🎙️ AI Voice (Prabhat)
+  </span>
+  <button class="ctrl-btn primary" id="btn-speak" onclick="toggleSpeak()">▶ Play Presentation</button>
+</div>
+
+<div id="app">
+  <!-- ══════════════════════ SLIDES ══════════════════════ -->
+  <div id="slide-container">
+
+    <!-- SLIDE 1 ─────────────────────────── -->
+    <section class="slide active" id="slide-1" data-script="Welcome to the AI Build Bootcamp and Hackathon 2026 at BIMTECH. This flagship event, held on 7th and 8th August 2026, is organized in collaboration with Reskilll. We are here to empower future managers with real, hands-on AI skills. Artificial Intelligence is transforming every business function — from Finance and Marketing to HR, Operations, and Strategy. Tomorrow's managers will not only use AI, but build AI-enabled business solutions. Our objective is to equip every first-year MBA student with hands-on experience in designing and building AI-powered business applications.">
+      <div class="slide-num">01</div>
+      <div class="slide-badge"><span class="dot"></span>BIMTECH × Reskilll</div>
+      <h1>AI Build Bootcamp<br/>&amp; Hackathon 2026</h1>
+      <div class="subtitle">Empowering Future Managers with AI Skills</div>
+      <div class="date-badge">📅 7–8 August 2026 &nbsp;|&nbsp; 9:00 AM – 7:00 PM</div>
+      <div class="divider"></div>
+      <div class="two-col">
+        <div class="glass-card">
+          <h3><span class="icon">🤔</span>Why This Initiative?</h3>
+          <p>AI is transforming every business function — Finance, Marketing, HR, Operations &amp; Strategy. Tomorrow's managers will not only <em>use</em> AI but also <em>build</em> AI-enabled solutions.</p>
+        </div>
+        <div class="glass-card">
+          <h3><span class="icon">🎯</span>Objective</h3>
+          <p>Equip every first-year MBA student with hands-on experience in designing and building AI-powered business applications.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2 ─────────────────────────── -->
+    <section class="slide" id="slide-2" data-script="Why does this matter to our students? AI is rapidly becoming a core management competency. Through this bootcamp and hackathon, students will learn to convert business problems into AI solutions, work collaboratively in multidisciplinary teams, build AI-enabled prototypes without extensive coding, develop innovation and design thinking skills, and present solutions before industry experts. The outcomes are truly exciting — hands-on AI exposure, practical problem-solving, real industry interaction, an innovation mindset, and portfolio-worthy projects. As we say: Learn AI by Building, Not Just by Reading.">
+      <div class="slide-num">02</div>
+      <div class="slide-badge"><span class="dot"></span>Student Impact</div>
+      <h2>Why This Matters<br/>to Our Students</h2>
+      <div class="divider"></div>
+      <div class="two-col" style="margin-bottom:14px;">
+        <div class="glass-card">
+          <h3><span class="icon">🧠</span>Students Will Learn To</h3>
+          <ul class="bullet-list">
+            <li>Convert business problems into AI solutions</li>
+            <li>Work collaboratively in multidisciplinary teams</li>
+            <li>Build AI-enabled prototypes without extensive coding</li>
+            <li>Develop innovation &amp; design-thinking skills</li>
+            <li>Present solutions before industry experts</li>
+          </ul>
+        </div>
+        <div class="glass-card">
+          <h3><span class="icon">🏆</span>Outcomes</h3>
+          <div class="outcomes-grid">
+            <div class="outcome-tag"><span>✔</span> Hands-on AI exposure</div>
+            <div class="outcome-tag"><span>✔</span> Practical problem-solving</div>
+            <div class="outcome-tag"><span>✔</span> Industry interaction</div>
+            <div class="outcome-tag"><span>✔</span> Innovation mindset</div>
+            <div class="outcome-tag"><span>✔</span> Portfolio-worthy projects</div>
+          </div>
+        </div>
+      </div>
+      <div class="vision-quote">
+        "Learn AI by Building, Not Just by Reading."
+      </div>
+    </section>
+
+    <!-- SLIDE 3 ─────────────────────────── -->
+    <section class="slide" id="slide-3" data-script="Let me walk you through the event structure. On Day 1, the 7th of August, students will participate in the AI Bootcamp. This includes an introduction to AI tools, guided hands-on sessions, team formation, and problem statement briefing. On Day 2, the 8th of August, the AI Hackathon begins — students develop prototypes with mentoring support, make project submissions, and get evaluated by Reskilll. Then comes the exciting Pitch Day on 19th August, where the Top 10 teams present before industry experts, advisory committee, and faculty jury. The Top 3 teams will be specially rewarded!">
+      <div class="slide-num">03</div>
+      <div class="slide-badge"><span class="dot"></span>Event Structure</div>
+      <h2>AI Build Bootcamp<br/>&amp; Hackathon</h2>
+      <div class="divider"></div>
+      <div class="three-col">
+        <div class="day-card">
+          <div class="day-label">📅 Day 1 – 7 August</div>
+          <h4>AI Bootcamp</h4>
+          <ul class="bullet-list">
+            <li>Introduction to AI tools</li>
+            <li>Guided hands-on sessions</li>
+            <li>Team formation</li>
+            <li>Problem statement briefing</li>
+          </ul>
+        </div>
+        <div class="day-card">
+          <div class="day-label">🚀 Day 2 – 8 August</div>
+          <h4>AI Hackathon</h4>
+          <ul class="bullet-list">
+            <li>Prototype development</li>
+            <li>Mentoring support</li>
+            <li>Project submission</li>
+            <li>Evaluation by Reskilll</li>
+          </ul>
+        </div>
+        <div class="pitch-card">
+          <div class="pitch-date">🏅 19 August – Pitch Day</div>
+          <h4>Top 10 Teams</h4>
+          <div class="arrow-flow">
+            <div class="flow-step">Industry Experts</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step">Advisory Committee</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step">Faculty Jury</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step" style="background:rgba(245,200,66,.18); border-color:rgba(245,200,66,.5); color:var(--gold);">🥇 Top 3 Rewarded</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4 ─────────────────────────── -->
+    <section class="slide" id="slide-4" data-script="Programme Chairs play a critical role in making this initiative truly successful. We need your support in encouraging maximum student participation, ensuring students attend as per batch allocation, minimizing class disruptions during the event, motivating students to treat the hackathon as a genuine learning opportunity, and coordinating with faculty mentors wherever required. In return, students will receive a joint BIMTECH and Reskilll participation certificate, industry exposure, an AI portfolio project, recognition for top teams, and an incredible opportunity to present before industry leaders.">
+      <div class="slide-num">04</div>
+      <div class="slide-badge"><span class="dot"></span>Your Role Matters</div>
+      <h2>Role of Programme Chairs</h2>
+      <div class="divider"></div>
+      <p style="font-size:.9rem; color:var(--white-80); margin-bottom:16px;">Programme Chairs play a <strong style="color:var(--cyan);">critical role</strong> in making this initiative successful.</p>
+      <div class="two-col">
+        <div class="glass-card">
+          <h3><span class="icon">🤝</span>Support Required</h3>
+          <ul class="bullet-list">
+            <li>Encourage maximum student participation</li>
+            <li>Ensure students attend as per batch allocation</li>
+            <li>Minimise class disruptions during the event</li>
+            <li>Motivate students to treat it as a learning opportunity</li>
+            <li>Coordinate with faculty mentors wherever required</li>
+          </ul>
+        </div>
+        <div class="glass-card">
+          <h3><span class="icon">🎁</span>Student Benefits</h3>
+          <div style="display:flex; flex-direction:column; gap:9px;">
+            <div class="benefit-pill">🏆 Joint BIMTECH–Reskilll Certificate</div>
+            <div class="benefit-pill">🏭 Industry Exposure</div>
+            <div class="benefit-pill">💼 AI Portfolio Project</div>
+            <div class="benefit-pill">🥇 Recognition for Top Teams</div>
+            <div class="benefit-pill">🎙️ Present Before Industry Leaders</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5 ─────────────────────────── -->
+    <section class="slide" id="slide-5" data-script="This is more than just a hackathon. It is the first flagship initiative of the AI Centre of Excellence at BIMTECH. Our vision is to create AI-literate management professionals capable of solving real business challenges using AI. Our journey is clear: from the AI Bootcamp, to the AI Hackathon, to the Pitch Day, to the formal launch of our AI Centre of Excellence, then to industry projects, and ultimately building a full AI Innovation Ecosystem at BIMTECH. Together, we are shaping the future of management education in India. Thank you.">
+      <div class="slide-num">05</div>
+      <div class="slide-badge"><span class="dot"></span>Bigger Picture</div>
+      <h2>Building the AI Culture<br/>at BIMTECH</h2>
+      <div class="divider"></div>
+      <div class="vision-quote">
+        "This is the first flagship initiative of the<br/>
+        <strong style="color:var(--cyan); font-style:normal;">AI Centre of Excellence</strong>"
+      </div>
+      <div class="glass-card" style="margin-bottom:14px;">
+        <h3><span class="icon">🌟</span>Vision</h3>
+        <p>Create AI-literate management professionals capable of solving real business challenges using AI.</p>
+      </div>
+      <div class="glass-card">
+        <h3><span class="icon">🗺️</span>Our Journey</h3>
+        <div class="journey-flow">
+          <div class="journey-step">AI Bootcamp</div>
+          <div class="journey-arrow">→</div>
+          <div class="journey-step">AI Hackathon</div>
+          <div class="journey-arrow">→</div>
+          <div class="journey-step">Pitch Day</div>
+          <div class="journey-arrow">→</div>
+          <div class="journey-step">AI Centre of Excellence</div>
+          <div class="journey-arrow">→</div>
+          <div class="journey-step">Industry Projects</div>
+          <div class="journey-arrow">→</div>
+          <div class="journey-step" style="background:rgba(245,200,66,.15); border-color:rgba(245,200,66,.4); color:var(--gold);">🚀 AI Innovation Ecosystem</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ══════════════════════ AVATAR PANEL ══════════════════════ -->
+  <div id="avatar-panel">
+    <div id="speech-bubble">
+      <div class="speaker-name">AI Presenter – Nikhil</div>
+      <div id="speech-text">Welcome! Click <strong>Narrate</strong> to hear me present each slide with voice narration. Use the controls below to navigate. Let's begin!</div>
+    </div>
+
+    <div class="avatar-ring">
+      <img
+        id="avatar-img"
+        src="./male_avatar_presenter.png"
+        alt="AI Presenter - Nikhil"
+      />
+      <!-- Lip sync bars overlay -->
+      <div class="mouth-overlay" id="mouth-overlay">
+        <div class="sound-bar" id="sound-bar">
+          <div class="bar" style="height:14px;"></div>
+          <div class="bar" style="height:20px;"></div>
+          <div class="bar" style="height:10px;"></div>
+          <div class="bar" style="height:24px;"></div>
+          <div class="bar" style="height:16px;"></div>
+          <div class="bar" style="height:20px;"></div>
+          <div class="bar" style="height:12px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="avatar-name">Nikhil · AI Presenter</div>
+  </div>
+
+  <!-- ══════════════════════ CONTROLS ══════════════════════ -->
+  <div id="controls">
+    <button class="ctrl-btn" id="btn-prev" onclick="changeSlide(-1)" disabled>← Prev</button>
+    <div id="progress-dots"></div>
+    <div id="slide-counter">01 / 05</div>
+    <button class="ctrl-btn primary" id="btn-next" onclick="changeSlide(1)">Next →</button>
+    <button class="ctrl-btn" onclick="toggleFullscreen()" title="Fullscreen">⛶</button>
+  </div>
+</div>
+
+<script>
+  // ─── STATE ──────────────────────────────────────────────────────────
+  let currentSlide = 0;
+  const totalSlides = 5;
+  let isSpeaking = false;
+  let speechEnabled = false;
+  const presentationAudio = new Audio();
+
+  // ─── SLIDES DATA ─────────────────────────────────────────────────────
+  const slides = document.querySelectorAll('.slide');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+  const counter = document.getElementById('slide-counter');
+  const soundBar = document.getElementById('sound-bar');
+  const speechText = document.getElementById('speech-text');
+  const btnSpeak = document.getElementById('btn-speak');
+
+  // ─── PROGRESS DOTS ───────────────────────────────────────────────────
+  const dotsContainer = document.getElementById('progress-dots');
+  for (let i = 0; i < totalSlides; i++) {
+    const d = document.createElement('div');
+    d.className = 'prog-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('id', 'dot-' + i);
+    d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    d.onclick = () => goToSlide(i);
+    dotsContainer.appendChild(d);
+  }
+
+  // ─── SLIDE NAVIGATION ────────────────────────────────────────────────
+  function changeSlide(dir) {
+    const next = currentSlide + dir;
+    if (next < 0 || next >= totalSlides) return;
+    goToSlide(next);
+  }
+
+  function goToSlide(index) {
+    stopSpeech();
+    slides[currentSlide].classList.remove('active');
+    document.getElementById('dot-' + currentSlide).classList.remove('active');
+    currentSlide = index;
+    slides[currentSlide].classList.add('active');
+    document.getElementById('dot-' + currentSlide).classList.add('active');
+    btnPrev.disabled = currentSlide === 0;
+    btnNext.disabled = currentSlide === totalSlides - 1;
+    counter.textContent = String(currentSlide + 1).padStart(2, '0') + ' / ' + String(totalSlides).padStart(2, '0');
+
+    if (speechEnabled) {
+      speakSlide();
+    } else {
+      typeText(slides[currentSlide].dataset.script.slice(0, 180) + '...');
+    }
+  }
+
+  // ─── SPEECH ──────────────────────────────────────────────────────────
+  const avatarRing = document.querySelector('.avatar-ring');
+  
+  presentationAudio.addEventListener('play', () => {
+    isSpeaking = true;
+    avatarRing.classList.add('speaking');
+    startProceduralLipSync();
+  });
+  
+  presentationAudio.addEventListener('pause', () => {
+    isSpeaking = false;
+    avatarRing.classList.remove('speaking');
+    stopProceduralLipSync();
+  });
+  
+  presentationAudio.addEventListener('ended', () => {
+    isSpeaking = false;
+    avatarRing.classList.remove('speaking');
+    stopProceduralLipSync();
+    
+    if (speechEnabled && currentSlide < totalSlides - 1) {
+      changeSlide(1);
+    } else if (speechEnabled && currentSlide === totalSlides - 1) {
+      speechEnabled = false;
+      btnSpeak.textContent = '▶ Play Presentation';
+      typeText('AI presentation completed successfully! Thank you for listening.');
+    }
+  });
+
+  // Procedural Lip Sync State
+  let lipSyncInterval = null;
+
+  function startProceduralLipSync() {
+    stopProceduralLipSync();
+    const bars = document.querySelectorAll('.sound-bar .bar');
+    let syllableTimer = 0;
+    let state = 'speak';
+    lipSyncInterval = setInterval(() => {
+      if (!isSpeaking) { stopProceduralLipSync(); return; }
+      syllableTimer -= 50;
+      if (syllableTimer <= 0) {
+        if (state === 'speak') {
+          if (Math.random() < 0.22) { state = 'pause'; syllableTimer = 100 + Math.random() * 120; }
+          else { syllableTimer = 140 + Math.random() * 200; }
+        } else { state = 'speak'; syllableTimer = 180 + Math.random() * 260; }
+      }
+      bars.forEach((bar, idx) => {
+        const cf = 1 - Math.abs(idx - 3) / 4;
+        const h = state === 'speak' ? 4 + Math.random() * 22 * cf : 3 + Math.random() * 2;
+        bar.style.height = `${h}px`;
+        bar.style.opacity = state === 'speak' ? '1' : '0.4';
+      });
+    }, 50);
+  }
+
+  function stopProceduralLipSync() {
+    if (lipSyncInterval) { clearInterval(lipSyncInterval); lipSyncInterval = null; }
+    document.querySelectorAll('.sound-bar .bar').forEach(b => {
+      b.style.height = '4px'; b.style.opacity = '0.3';
+    });
+  }
+
+  function speakSlide() {
+    presentationAudio.src = './slide_' + (currentSlide + 1) + '.mp3';
+    
+    // Type the caption text
+    const script = slides[currentSlide].dataset.script;
+    if (script) typeText(script);
+
+    presentationAudio.play().catch(e => {
+      console.error("Audio playback failed:", e);
+      speechText.innerHTML = '<span style="color: #ff6b6b; font-weight: bold;">⚠️ Audio playback blocked by browser! Please click anywhere on the page and try again.</span>';
+      speechEnabled = false;
+      btnSpeak.textContent = '▶ Play Presentation';
+    });
+  }
+
+  function stopSpeech() {
+    presentationAudio.pause();
+    isSpeaking = false;
+    avatarRing.classList.remove('speaking');
+    stopProceduralLipSync();
+  }
+
+  function toggleSpeak() {
+    speechEnabled = !speechEnabled;
+    btnSpeak.textContent = speechEnabled ? '⏹ Pause Presentation' : '▶ Play Presentation';
+    if (speechEnabled) {
+      speakSlide();
+    } else {
+      stopSpeech();
+    }
+  }
+
+  // ─── TYPE WRITER EFFECT ──────────────────────────────────────────────
+  let typeInterval = null;
+  function typeText(text) {
+    if (typeInterval) clearInterval(typeInterval);
+    speechText.innerHTML = '';
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    let i = 0;
+    const shortText = text.length > 280 ? text.slice(0, 280) + '…' : text;
+    typeInterval = setInterval(() => {
+      if (i >= shortText.length) {
+        clearInterval(typeInterval);
+        speechText.appendChild(cursor);
+        return;
+      }
+      speechText.textContent += shortText[i];
+      i++;
+    }, 28);
+  }
+
+  // ─── KEYBOARD ────────────────────────────────────────────────────────
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   changeSlide(-1);
+    if (e.key === 'F5' || e.key === 'f') toggleFullscreen();
+    if (e.key === 's' || e.key === 'S') toggleSpeak();
+  });
+
+  // ─── FULLSCREEN ──────────────────────────────────────────────────────
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen().catch(() => {});
+    }
+  }
+
+  // ─── PARTICLES ───────────────────────────────────────────────────────
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+
+  function resizeCanvas() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.vx = (Math.random() - .5) * .4;
+      this.vy = (Math.random() - .5) * .4;
+      this.r = Math.random() * 2 + .5;
+      this.alpha = Math.random() * .5 + .1;
+      this.color = Math.random() > .5 ? '0,212,255' : '124,58,237';
+    }
+    update() {
+      this.x += this.vx; this.y += this.vy;
+      if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${this.color},${this.alpha})`;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+  function drawConnections() {
+    const maxDist = 100;
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < maxDist) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(0,212,255,${.15 * (1 - dist/maxDist)})`;
+          ctx.lineWidth = .5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    drawConnections();
+    requestAnimationFrame(animParticles);
+  }
+  animParticles();
+
+  // ─── INIT ─────────────────────────────────────────────────────────────
+  typeText("Welcome! Click 🔊 Narrate to hear me present each slide. Use the controls below or arrow keys to navigate. Let's begin!");
+</script>
+</body>
+</html>
