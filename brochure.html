@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BIMTECH AI Centre of Excellence — Recruiter Placement Brochure (A4 Tri-Fold)</title>
+  <meta name="description" content="Printable A4 tri-fold recruiter brochure for the BIMTECH AI Centre of Excellence. From AI Learning to AI Building." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ══════════════════════════════════════════════════════════════════
+       A4 TRI-FOLD RECRUITER BROCHURE
+       Physical dimensions: 297mm × 210mm (Landscape)
+       Panel width: 99mm each (3 panels per side = 297mm total)
+       ══════════════════════════════════════════════════════════════════ */
+    
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #0a1931;
+      --primary-dark: #060e1d;
+      --accent-blue: #1d4ed8;
+      --accent-cyan: #0284c7;
+      --accent-teal: #059669;
+      --accent-gold: #b45309;
+      --text-dark: #0f172a;
+      --text-muted: #475569;
+      --text-light: #f8fafc;
+      --border-subtle: #cbd5e1;
+      --panel-width: 99mm;
+      --page-height: 210mm;
+      --page-width: 297mm;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #334155;
+      color: var(--text-dark);
+      line-height: 1.35;
+      font-size: 8.5pt;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Screen preview controls bar (hidden on print) */
+    .screen-control-bar {
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      background: #0f172a;
+      color: #fff;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    }
+
+    .control-title-group h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    .control-title-group p {
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+
+    .control-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-print {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(2, 132, 199, 0.4);
+    }
+
+    .btn-print:hover {
+      background: #0284c7;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* Document container for screen viewing */
+    .brochure-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      padding: 30px 10px 60px 10px;
+    }
+
+    /* A4 Physical Sheet */
+    .brochure-page {
+      width: var(--page-width);
+      height: var(--page-height);
+      background: #ffffff;
+      display: grid;
+      grid-template-columns: repeat(3, var(--panel-width));
+      position: relative;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      page-break-after: always;
+      break-after: page;
+    }
+
+    /* Fold guide markers */
+    .brochure-page.show-guides::before,
+    .brochure-page.show-guides::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      border-left: 1px dashed rgba(148, 163, 184, 0.45);
+      z-index: 50;
+      pointer-events: none;
+    }
+    .brochure-page.show-guides::before { left: 99mm; }
+    .brochure-page.show-guides::after  { left: 198mm; }
+
+    /* Individual Panel (99mm × 210mm) */
+    .panel {
+      width: var(--panel-width);
+      height: var(--page-height);
+      padding: 9mm 7.5mm;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Outfit', sans-serif;
+      line-height: 1.15;
+    }
+
+    /* ─── SIDE A (OUTSIDE SPREAD) ─── */
+    
+    /* Panel 1 (Inside Flap / Left) */
+    .panel-flap {
+      background: #f8fafc;
+      border-right: 1px solid #e2e8f0;
+    }
+
+    /* Panel 2 (Back Cover / Center) */
+    .panel-back-cover {
+      background: linear-gradient(175deg, #0a1931 0%, #0f172a 45%, #0c1d35 100%);
+      color: #f8fafc;
+    }
+
+    /* Panel 3 (Front Cover / Right) */
+    .panel-front-cover {
+      background: linear-gradient(145deg, #060e1d 0%, #0a1931 60%, #0c2340 100%);
+      color: #ffffff;
+      position: relative;
+    }
+
+    /* ─── SIDE B (INSIDE SPREAD) ─── */
+    
+    /* Panel 4 (Inside Left: What We Do) */
+    .panel-inside-left {
+      background: #ffffff;
+      border-right: 1px solid #e2e8f0;
+    }
+
+    /* Panel 5 (Inside Center: Top 10 Showcase) */
+    .panel-inside-center {
+      background: #f8fafc;
+      border-right: 1px solid #e2e8f0;
+    }
+
+    /* Panel 6 (Inside Right: Leadership & Advisory) */
+    .panel-inside-right {
+      background: #ffffff;
+    }
+
+    /* Front Cover Elements */
+    .cover-accent-line {
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(90deg, #38bdf8, #2563eb);
+      border-radius: 2px;
+      margin-bottom: 8px;
+    }
+
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 6.5pt;
+      font-weight: 700;
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      width: fit-content;
+    }
+
+    .cover-inst-name {
+      font-size: 7.8pt;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 6px;
+    }
+
+    .cover-main-title {
+      font-size: 19pt;
+      font-weight: 900;
+      line-height: 1.0;
+      color: #ffffff;
+      margin-top: 5px;
+    }
+
+    .cover-main-title span {
+      color: #38bdf8;
+    }
+
+    .cover-tagline-box {
+      margin-top: 10px;
+      border-left: 3px solid #38bdf8;
+      padding-left: 8px;
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
+
+    .cover-thesis {
+      font-size: 8pt;
+      font-weight: 800;
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .cover-subthesis {
+      font-size: 7.5pt;
+      color: #cbd5e1;
+      margin-top: 3px;
+      line-height: 1.35;
+    }
+
+    .cover-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      margin: 12px 0 8px;
+    }
+
+    .cover-stat-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      padding: 6px 7px;
+      text-align: center;
+    }
+
+    .cover-stat-val {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13pt;
+      font-weight: 900;
+      color: #38bdf8;
+      line-height: 1;
+    }
+
+    .cover-stat-lbl {
+      font-size: 6.2pt;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .cover-highlight-box {
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.22);
+      border-radius: 6px;
+      padding: 7px 8px;
+      margin-bottom: 8px;
+    }
+
+    .cover-highlight-box p {
+      font-size: 6.8pt;
+      color: #e2e8f0;
+      font-weight: 500;
+      font-style: italic;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    .cover-dates-strip {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 5px;
+      padding: 5px 7px;
+      margin-bottom: 8px;
+    }
+
+    .cover-dates-strip .dt-title {
+      font-size: 6pt;
+      text-transform: uppercase;
+      color: #38bdf8;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 3px;
+    }
+
+    .cover-dates-strip .dt-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 6.2pt;
+      color: #cbd5e1;
+      margin-bottom: 1px;
+    }
+
+    .cover-dates-strip .dt-row strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .cover-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding-top: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 6.5pt;
+      color: #94a3b8;
+      margin-top: auto;
+    }
+
+    /* Back Cover Elements */
+    .back-cover-header {
+      margin-bottom: 9px;
+    }
+
+    .back-title {
+      font-size: 13pt;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 3px;
+      line-height: 1.1;
+    }
+
+    .back-sub {
+      font-size: 7pt;
+      color: #38bdf8;
+      line-height: 1.3;
+    }
+
+    .pathways-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .pathway-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 6px 8px;
+    }
+
+    .pathway-badge {
+      font-size: 7pt;
+      font-weight: 800;
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .pathway-desc {
+      font-size: 6.8pt;
+      color: #cbd5e1;
+      line-height: 1.3;
+    }
+
+    /* Full CCR contact card */
+    .contact-card {
+      background: rgba(30, 58, 138, 0.3);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      border-radius: 7px;
+      padding: 8px;
+      margin-top: 0;
+    }
+
+    .contact-title {
+      font-size: 7.5pt;
+      font-weight: 800;
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .contact-person-block {
+      margin-bottom: 5px;
+      padding-bottom: 5px;
+      border-bottom: 1px dashed rgba(255,255,255,0.1);
+    }
+    .contact-person-block:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .contact-name {
+      font-size: 7pt;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .contact-role {
+      font-size: 6.2pt;
+      color: #94a3b8;
+      margin-bottom: 1px;
+    }
+
+    .contact-detail {
+      font-size: 6.2pt;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+
+    .contact-detail a {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+
+    .contact-institute-block {
+      background: rgba(56, 189, 248, 0.08);
+      border-radius: 4px;
+      padding: 4px 6px;
+      margin-top: 5px;
+      border-top: 1px dashed rgba(255,255,255,0.1);
+    }
+
+    .contact-institute-block p {
+      font-size: 6.2pt;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+
+    .contact-institute-block strong {
+      color: #38bdf8;
+    }
+
+    /* Flap & Inside Elements */
+    .section-head {
+      margin-bottom: 7px;
+    }
+
+    .section-badge-tiny {
+      font-size: 6.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+      letter-spacing: 0.06em;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .section-head h2 {
+      font-size: 10.5pt;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .section-head p {
+      font-size: 7pt;
+      color: var(--text-muted);
+      line-height: 1.25;
+      margin-top: 2px;
+    }
+
+    /* Methodology Stepper */
+    .journey-mini-stepper {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin: 6px 0;
+    }
+
+    .journey-mini-node {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 5px;
+      padding: 4px 6px;
+    }
+
+    .journey-idx {
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 7pt;
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .journey-text-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .journey-name {
+      font-size: 6.8pt;
+      font-weight: 700;
+      color: #0f172a;
+      text-transform: uppercase;
+    }
+
+    .journey-q {
+      font-size: 6.3pt;
+      color: #64748b;
+      line-height: 1.2;
+    }
+
+    /* Matrix mini table */
+    .matrix-mini {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 5px;
+      font-size: 6.5pt;
+    }
+
+    .matrix-mini th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+      padding: 3.5px 5px;
+      text-align: left;
+      border-bottom: 1px solid #cbd5e1;
+    }
+
+    .matrix-mini td {
+      padding: 3px 5px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #334155;
+    }
+
+    .matrix-mini td strong {
+      color: #0f172a;
+    }
+
+    /* Flap quote strip */
+    .quote-strip {
+      background: #eff6ff;
+      border-left: 2px solid #2563eb;
+      padding: 5px 7px;
+      border-radius: 0 4px 4px 0;
+      margin-top: auto;
+    }
+
+    .quote-strip p {
+      font-size: 6.3pt;
+      font-style: italic;
+      color: #1e3a8a;
+      line-height: 1.3;
+    }
+
+    /* Evaluation criteria strip (flap bottom) */
+    .criteria-strip {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 5px;
+      padding: 5px 7px;
+      margin-top: 6px;
+    }
+
+    .criteria-strip .ct-title {
+      font-size: 6.5pt;
+      font-weight: 700;
+      color: #92400e;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 3px;
+    }
+
+    .criteria-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+    }
+
+    .ctag {
+      background: #fff;
+      border: 1px solid #fcd9a0;
+      border-radius: 3px;
+      padding: 1px 4px;
+      font-size: 6pt;
+      font-weight: 600;
+      color: #92400e;
+    }
+
+    /* 4 Pillars Mini Cards */
+    .pillars-mini-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .pillar-mini-item {
+      border: 1px solid #e2e8f0;
+      border-left: 3px solid var(--accent-blue);
+      border-radius: 5px;
+      padding: 6px 7px;
+      background: #ffffff;
+    }
+
+    .pillar-mini-item:nth-child(2) { border-left-color: #059669; }
+    .pillar-mini-item:nth-child(3) { border-left-color: #7c3aed; }
+    .pillar-mini-item:nth-child(4) { border-left-color: #b45309; }
+
+    .pillar-mini-title {
+      font-size: 7.5pt;
+      font-weight: 800;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .pillar-mini-sub {
+      font-size: 6.5pt;
+      font-weight: 600;
+      color: var(--accent-blue);
+      margin-bottom: 2px;
+    }
+
+    .pillar-mini-item:nth-child(2) .pillar-mini-sub { color: #059669; }
+    .pillar-mini-item:nth-child(3) .pillar-mini-sub { color: #7c3aed; }
+    .pillar-mini-item:nth-child(4) .pillar-mini-sub { color: #b45309; }
+
+    .pillar-mini-desc {
+      font-size: 6.5pt;
+      color: #475569;
+      line-height: 1.25;
+    }
+
+    /* Bootcamp timeline mini-strip */
+    .timeline-strip {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 0;
+    }
+
+    .tl-phase {
+      display: flex;
+      align-items: flex-start;
+      gap: 5px;
+      padding: 3px 0;
+      position: relative;
+    }
+
+    .tl-phase:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 16px;
+      width: 1px;
+      height: calc(100% - 2px);
+      background: #cbd5e1;
+    }
+
+    .tl-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #1d4ed8;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5.5pt;
+      font-weight: 800;
+      color: #fff;
+      margin-top: 1px;
+    }
+
+    .tl-content .tl-phase-name {
+      font-size: 6.5pt;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .tl-content .tl-phase-sub {
+      font-size: 6pt;
+      color: #64748b;
+      line-height: 1.2;
+    }
+
+    /* Projects Compact Cards */
+    .projects-compact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .project-compact-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-left: 3px solid #1d4ed8;
+      border-radius: 5px;
+      padding: 5px 7px;
+    }
+
+    .project-compact-card:nth-child(2) { border-left-color: #059669; }
+    .project-compact-card:nth-child(3) { border-left-color: #7c3aed; }
+    .project-compact-card:nth-child(4) { border-left-color: #b45309; }
+    .project-compact-card:nth-child(5) { border-left-color: #0284c7; }
+    .project-compact-card:nth-child(6) { border-left-color: #db2777; }
+
+    .project-compact-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1px;
+    }
+
+    .project-badge-rank {
+      font-size: 6pt;
+      font-weight: 800;
+      background: #eff6ff;
+      color: #1d4ed8;
+      padding: 1px 4px;
+      border-radius: 999px;
+    }
+
+    .project-track-tag {
+      font-size: 5.8pt;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .project-compact-title {
+      font-size: 7.3pt;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.15;
+    }
+
+    .project-compact-problem {
+      font-size: 6.2pt;
+      color: #475569;
+      line-height: 1.25;
+      margin-top: 1px;
+    }
+
+    .project-compact-tech {
+      font-size: 5.8pt;
+      color: #059669;
+      font-weight: 600;
+      margin-top: 1px;
+    }
+
+    /* Evaluation note strip below projects */
+    .eval-note-strip {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 4px;
+      padding: 4px 7px;
+      margin-top: auto;
+    }
+
+    .eval-note-strip p {
+      font-size: 6pt;
+      color: #166534;
+      line-height: 1.3;
+    }
+
+    /* People & Board Mini */
+    .people-block {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .person-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      border: 1px solid #e2e8f0;
+      border-radius: 5px;
+      padding: 5px 7px;
+      background: #ffffff;
+    }
+
+    .person-thumb-mini {
+      width: 26px;
+      height: 26px;
+      border-radius: 4px;
+      object-fit: cover;
+      border: 1px solid #cbd5e1;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .person-initial-box {
+      width: 26px;
+      height: 26px;
+      border-radius: 4px;
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 7.5pt;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .person-text h4 {
+      font-size: 7.2pt;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.1;
+    }
+
+    .person-text .person-role {
+      font-size: 6.2pt;
+      font-weight: 700;
+      color: #1d4ed8;
+      line-height: 1.2;
+    }
+
+    .person-text .person-bio {
+      font-size: 6pt;
+      color: #64748b;
+      line-height: 1.2;
+    }
+
+    /* Advisory compact rows */
+    .advisory-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 5px;
+    }
+
+    .advisor-mini-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 5px;
+      padding: 5px 7px;
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .advisor-initial {
+      width: 22px;
+      height: 22px;
+      border-radius: 3px;
+      background: linear-gradient(135deg, #0f172a, #1d4ed8);
+      color: #38bdf8;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 7pt;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .advisor-text h5 {
+      font-size: 6.8pt;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.1;
+    }
+
+    .advisor-text .adv-org {
+      font-size: 6pt;
+      color: #1d4ed8;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .advisor-text .adv-bio {
+      font-size: 5.8pt;
+      color: #64748b;
+      line-height: 1.2;
+    }
+
+    /* Panel footer baseline */
+    .panel-footer {
+      margin-top: auto;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 5px;
+      font-size: 6pt;
+      color: #94a3b8;
+    }
+
+    /* ─── PRINT SPECIFIC RULES ─── */
+    @media print {
+      body {
+        background: #fff !important;
+        padding: 0 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .brochure-stage {
+        padding: 0 !important;
+        gap: 0 !important;
+      }
+      .brochure-page {
+        box-shadow: none !important;
+        margin: 0 !important;
+        page-break-after: always !important;
+        break-after: page !important;
+      }
+      .brochure-page.show-guides::before,
+      .brochure-page.show-guides::after {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen Top Control Bar (Hidden when printed) -->
+  <header class="screen-control-bar no-print">
+    <div class="control-title-group">
+      <h1>BIMTECH AI Centre of Excellence — Recruiter Brochure</h1>
+      <p>Printable A4 (297 × 210 mm) Tri-Fold Layout • Perfect for Corporate Placement Drives &amp; HR Meetings</p>
+    </div>
+    <div class="control-actions">
+      <button class="btn btn-outline" onclick="toggleGuides()">Toggle Fold Guides</button>
+      <a href="index.html" class="btn btn-outline">← Interactive Showcase</a>
+      <button class="btn btn-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
+    </div>
+  </header>
+
+  <main class="brochure-stage">
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         SHEET 1: OUTSIDE SPREAD (Side A)
+         Panel 1: Inside Flap | Panel 2: Back Cover | Panel 3: Front Cover
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="brochure-page show-guides" id="page-outside" aria-label="Brochure Outside Spread">
+      
+      <!-- PANEL 1: INSIDE FLAP (Left Panel on Sheet 1) -->
+      <article class="panel panel-flap">
+        <!-- Methodology -->
+        <div class="section-head">
+          <span class="section-badge-tiny">The Methodology</span>
+          <h2>PROBLEM TO PROTOTYPE</h2>
+          <p>How BIMTECH management students approach artificial intelligence.</p>
+        </div>
+
+        <div class="journey-mini-stepper">
+          <div class="journey-mini-node">
+            <span class="journey-idx">01</span>
+            <div class="journey-text-group">
+              <span class="journey-name">IDENTIFY</span>
+              <span class="journey-q">What is the acute business problem?</span>
+            </div>
+          </div>
+          <div class="journey-mini-node">
+            <span class="journey-idx">02</span>
+            <div class="journey-text-group">
+              <span class="journey-name">THINK</span>
+              <span class="journey-q">Where can AI create measurable ROI?</span>
+            </div>
+          </div>
+          <div class="journey-mini-node">
+            <span class="journey-idx">03</span>
+            <div class="journey-text-group">
+              <span class="journey-name">BUILD</span>
+              <span class="journey-q">Turn concept into a working prototype.</span>
+            </div>
+          </div>
+          <div class="journey-mini-node">
+            <span class="journey-idx">04</span>
+            <div class="journey-text-group">
+              <span class="journey-name">TEST</span>
+              <span class="journey-q">Deterministic math + LLM verification.</span>
+            </div>
+          </div>
+          <div class="journey-mini-node">
+            <span class="journey-idx">05</span>
+            <div class="journey-text-group">
+              <span class="journey-name">PITCH</span>
+              <span class="journey-q">Defend unit economics &amp; market viability.</span>
+            </div>
+          </div>
+          <div class="journey-mini-node">
+            <span class="journey-idx">06</span>
+            <div class="journey-text-group">
+              <span class="journey-name">AUDIT</span>
+              <span class="journey-q">Live evidence verified by industry evaluators.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recruiter Capability Matrix -->
+        <div class="section-head" style="margin-top: 8px;">
+          <span class="section-badge-tiny">Recruiter Matrix</span>
+          <h2>STUDENT CAPABILITIES</h2>
+        </div>
+
+        <table class="matrix-mini">
+          <thead>
+            <tr>
+              <th>Capability</th>
+              <th>Enterprise Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Generative AI</strong></td>
+              <td>Research, synthesis &amp; workflow acceleration</td>
+            </tr>
+            <tr>
+              <td><strong>AI Agents</strong></td>
+              <td>Task-specific autonomous business actions</td>
+            </tr>
+            <tr>
+              <td><strong>Agentic AI</strong></td>
+              <td>Multi-step reasoning &amp; tool calling loops</td>
+            </tr>
+            <tr>
+              <td><strong>Problem Solving</strong></td>
+              <td>Anchoring tech in unit economics &amp; ROI</td>
+            </tr>
+            <tr>
+              <td><strong>AI Prototyping</strong></td>
+              <td>Working code &amp; UX instead of slide decks</td>
+            </tr>
+            <tr>
+              <td><strong>Data Ethics</strong></td>
+              <td>Zero-hallucination math &amp; DPDP compliance</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Evaluation criteria -->
+        <div class="criteria-strip" style="margin-top: 7px;">
+          <div class="ct-title">Hackathon Evaluation Criteria</div>
+          <div class="criteria-tags">
+            <span class="ctag">Novelty</span>
+            <span class="ctag">Problem Relevance</span>
+            <span class="ctag">Solution Design</span>
+            <span class="ctag">Scalability</span>
+            <span class="ctag">Technical Feasibility</span>
+          </div>
+        </div>
+
+        <div class="quote-strip">
+          <p>"We are developing students who can sit seamlessly between business strategy and technology — and build working AI systems."</p>
+        </div>
+      </article>
+
+      <!-- PANEL 2: BACK COVER (Center Panel on Sheet 1) -->
+      <article class="panel panel-back-cover">
+        <div class="back-cover-header">
+          <div class="brand-pill" style="margin-bottom: 7px;">Corporate Engagement</div>
+          <h2 class="back-title">PARTNER WITH US</h2>
+          <p class="back-sub">Bring your business challenge to our AI innovators</p>
+        </div>
+
+        <div class="pathways-list">
+          <div class="pathway-item">
+            <span class="pathway-badge">🎯 RECRUIT</span>
+            <p class="pathway-desc">
+              Hire management graduates skilled in Generative AI, agentic automation, analytics, and rapid prototyping. Students who build before they brief.
+            </p>
+          </div>
+          <div class="pathway-item">
+            <span class="pathway-badge">💡 COLLABORATE</span>
+            <p class="pathway-desc">
+              Bring an authentic business problem to our students. Co-create working AI sandboxes with faculty mentorship. See live prototypes, not slide decks.
+            </p>
+          </div>
+          <div class="pathway-item">
+            <span class="pathway-badge">🤝 PARTNER</span>
+            <p class="pathway-desc">
+              Sponsor corporate hackathons, AI bootcamps, and executive masterclasses in AI governance. Shape the curriculum with real use cases.
+            </p>
+          </div>
+          <div class="pathway-item">
+            <span class="pathway-badge">🏫 ENGAGE ON CAMPUS</span>
+            <p class="pathway-desc">
+              Guest lectures, industry mentorship, live project reviews, and AI Centre Advisory participation. Build a pipeline, not just a placement.
+            </p>
+          </div>
+        </div>
+
+        <!-- Full CCR Placement Contact Card -->
+        <div class="contact-card">
+          <div class="contact-title">📞 PLACEMENT OFFICE — CCR TEAM</div>
+
+          <div class="contact-person-block">
+            <div class="contact-name">Prof. Jyoti S. Das</div>
+            <div class="contact-role">Chairperson, Corporate & Career Relations (CCR)</div>
+            <div class="contact-detail">📞 +91-120-2323001-10 (Extn. 327)</div>
+            <div class="contact-detail">📱 +91 97174 04844</div>
+            <div class="contact-detail">💬 WhatsApp: +91 97116 37426</div>
+          </div>
+
+          <div class="contact-person-block">
+            <div class="contact-name">Ms. Gurpreet Kaur</div>
+            <div class="contact-role">Sr. Manager, CCR</div>
+            <div class="contact-detail">📱 +91 99901 36111 &nbsp;|&nbsp; <a>gurpreet.kaur@bimtech.ac.in</a></div>
+          </div>
+
+          <div class="contact-person-block">
+            <div class="contact-name">Mr. Amit Saxena</div>
+            <div class="contact-role">Sr. Manager, CCR</div>
+            <div class="contact-detail"><a>amit.saxena@bimtech.ac.in</a></div>
+          </div>
+
+          <div class="contact-person-block">
+            <div class="contact-name">Mr. Jai Singh</div>
+            <div class="contact-role">Asst. Manager, CCR</div>
+            <div class="contact-detail">📱 +91 99589 41333 &nbsp;|&nbsp; <a>jaisingh@bimtech.ac.in</a></div>
+          </div>
+
+          <div class="contact-institute-block">
+            <p><strong>BIMTECH, Greater Noida</strong> — Plot No. 5, Knowledge Park II, UP – 201306</p>
+            <p>📞 +91-120-6843000-10 &nbsp;|&nbsp; Toll-Free: <strong>1800 5723 999</strong></p>
+            <p>🌐 <strong>www.bimtech.ac.in/placements</strong></p>
+          </div>
+        </div>
+      </article>
+
+      <!-- PANEL 3: FRONT COVER (Right Panel on Sheet 1) -->
+      <article class="panel panel-front-cover">
+        <div>
+          <div class="cover-accent-line"></div>
+          <div class="brand-pill">BIMTECH AI CENTRE OF EXCELLENCE</div>
+          <div class="cover-inst-name">Birla Institute of Management Technology</div>
+          
+          <h1 class="cover-main-title">
+            AI CENTRE<br/>OF <span>EXCELLENCE</span>
+          </h1>
+
+          <div class="cover-tagline-box">
+            <div class="cover-thesis">From AI Learning to AI Building</div>
+            <p class="cover-subthesis">
+              Developing management professionals who use AI to solve real business problems — not just talk about them.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <div class="cover-stats-grid">
+            <div class="cover-stat-box">
+              <div class="cover-stat-val">500+</div>
+              <div class="cover-stat-lbl">Students Engaged</div>
+            </div>
+            <div class="cover-stat-box">
+              <div class="cover-stat-val">48-Hr</div>
+              <div class="cover-stat-lbl">AI Build Sprint</div>
+            </div>
+            <div class="cover-stat-box">
+              <div class="cover-stat-val">TOP 10</div>
+              <div class="cover-stat-lbl">Finalist Prototypes</div>
+            </div>
+            <div class="cover-stat-box">
+              <div class="cover-stat-val">100%</div>
+              <div class="cover-stat-lbl">Live Evidence</div>
+            </div>
+          </div>
+
+          <!-- Key dates -->
+          <div class="cover-dates-strip">
+            <div class="dt-title">AI Build Bootcamp &amp; Hackathon 2026</div>
+            <div class="dt-row"><span>Bootcamp — Problem Framing</span><strong>7 Aug</strong></div>
+            <div class="dt-row"><span>48-Hr AI Build Sprint</span><strong>7–8 Aug</strong></div>
+            <div class="dt-row"><span>Top 10 Technical Audit</span><strong>Aug 2026</strong></div>
+            <div class="dt-row"><span>Grand Finale &amp; Awards</span><strong>19 Aug 2026</strong></div>
+          </div>
+
+          <div class="cover-highlight-box">
+            <p>
+              "We don't teach students to prompt. We train them to architect, evaluate, and build with AI — producing verified working prototypes."
+            </p>
+          </div>
+        </div>
+
+        <div class="cover-footer">
+          <span>Greater Noida, NCR, India</span>
+          <span>Recruiter Showcase 2026</span>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         SHEET 2: INSIDE SPREAD (Side B)
+         Panel 4: What We Do | Panel 5: Top Projects | Panel 6: Leadership
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="brochure-page show-guides" id="page-inside" aria-label="Brochure Inside Spread">
+      
+      <!-- PANEL 4: WHAT WE DO (Left Panel on Sheet 2) -->
+      <article class="panel panel-inside-left">
+        <div class="section-head">
+          <span class="section-badge-tiny">Core Curriculum</span>
+          <h2>WHAT WE DO</h2>
+          <p>Moving from AI awareness to measurable enterprise application.</p>
+        </div>
+
+        <div class="pillars-mini-list">
+          <div class="pillar-mini-item">
+            <div class="pillar-mini-title">🤖 GENERATIVE AI</div>
+            <div class="pillar-mini-sub">From Prompting to Productivity</div>
+            <p class="pillar-mini-desc">
+              High-leverage business research, financial analysis, synthetic data formulation, and executive communication with rigorous output validation.
+            </p>
+          </div>
+
+          <div class="pillar-mini-item">
+            <div class="pillar-mini-title">🧠 AI AGENTS</div>
+            <div class="pillar-mini-sub">AI That Performs Real Tasks</div>
+            <p class="pillar-mini-desc">
+              Task-specific autonomous agents designed to query corporate databases, parse messy customer returns, and trigger operational API events.
+            </p>
+          </div>
+
+          <div class="pillar-mini-item">
+            <div class="pillar-mini-title">⚡ AGENTIC AI</div>
+            <div class="pillar-mini-sub">Systems Working Through Workflows</div>
+            <p class="pillar-mini-desc">
+              Multi-step reasoning pipelines separating deterministic calculations from LLM text synthesis to guarantee zero-hallucination compliance.
+            </p>
+          </div>
+
+          <div class="pillar-mini-item">
+            <div class="pillar-mini-title">💼 AI + BUSINESS</div>
+            <div class="pillar-mini-sub">Technology Meets Management</div>
+            <p class="pillar-mini-desc">
+              Anchored in unit economics, token cost models, customer pain points, DPDP compliance, and provable corporate return on investment.
+            </p>
+          </div>
+        </div>
+
+        <!-- Bootcamp Timeline -->
+        <div class="section-head" style="margin-top: 9px;">
+          <span class="section-badge-tiny">Programme Journey</span>
+          <h2 style="font-size:8.5pt;">AI BOOTCAMP TIMELINE</h2>
+        </div>
+
+        <div class="timeline-strip">
+          <div class="tl-phase">
+            <div class="tl-dot">1</div>
+            <div class="tl-content">
+              <div class="tl-phase-name">Problem Framing &amp; AI Orientation</div>
+              <div class="tl-phase-sub">Define the right problem before any code</div>
+            </div>
+          </div>
+          <div class="tl-phase">
+            <div class="tl-dot">2</div>
+            <div class="tl-content">
+              <div class="tl-phase-name">Prototype Sprint — 48 Hours</div>
+              <div class="tl-phase-sub">Real working builds, live APIs, no mockups</div>
+            </div>
+          </div>
+          <div class="tl-phase">
+            <div class="tl-dot">3</div>
+            <div class="tl-content">
+              <div class="tl-phase-name">Technical Audit — Top 10</div>
+              <div class="tl-phase-sub">Live sandbox testing by expert evaluators</div>
+            </div>
+          </div>
+          <div class="tl-phase">
+            <div class="tl-dot">4</div>
+            <div class="tl-content">
+              <div class="tl-phase-name">Grand Finale Presentations</div>
+              <div class="tl-phase-sub">Business case + prototype demo to jury</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-footer">
+          500+ PGDM students · August 2026 · Greater Noida
+        </div>
+      </article>
+
+      <!-- PANEL 5: TOP PROJECTS SHOWCASE (Center Panel on Sheet 2) -->
+      <article class="panel panel-inside-center">
+        <div class="section-head">
+          <span class="section-badge-tiny">Verified Software · Grand Finale 2026</span>
+          <h2>WHAT STUDENTS BUILT</h2>
+          <p>Top finalist prototypes — live-audited by industry evaluators.</p>
+        </div>
+
+        <div class="projects-compact-list">
+
+          <div class="project-compact-card">
+            <div class="project-compact-header">
+              <span class="project-badge-rank">Rank #1 · Open Innovation</span>
+              <span class="project-track-tag">UPI Commerce</span>
+            </div>
+            <div class="project-compact-title">UPI ShopLink: Soundbox GPS Commerce</div>
+            <p class="project-compact-problem">
+              Adds GPS sync to merchant UPI Soundboxes — powering on auto-broadcasts a live 2.5km hyperlocal storefront with zero app friction.
+            </p>
+            <div class="project-compact-tech">IoT Soundbox ID + Dynamic Radius + Real-time API</div>
+          </div>
+
+          <div class="project-compact-card">
+            <div class="project-compact-header">
+              <span class="project-badge-rank">Rank #2 · FinTech</span>
+              <span class="project-track-tag">MSME Credit</span>
+            </div>
+            <div class="project-compact-title">AI Credit Coach for Indian MSMEs</div>
+            <p class="project-compact-problem">
+              Translates small business transaction flows into plain-language creditworthiness guidance and compliant funding roadmaps.
+            </p>
+            <div class="project-compact-tech">Deterministic Math + Gemini AI Narrative Layer</div>
+          </div>
+
+          <div class="project-compact-card">
+            <div class="project-compact-header">
+              <span class="project-badge-rank">Rank #3 · D2C E-Commerce</span>
+              <span class="project-track-tag">Retail AI</span>
+            </div>
+            <div class="project-compact-title">ShelfSense: D2C Returns Intelligence</div>
+            <p class="project-compact-problem">
+              Fuses reviews, return reasons &amp; support chats to pinpoint SKU defects. Measured post-fix return rate drop: 12.8% → 9.7%.
+            </p>
+            <div class="project-compact-tech">Root Cause NLP + Closed-Loop ROI Tracker</div>
+          </div>
+
+          <div class="project-compact-card">
+            <div class="project-compact-header">
+              <span class="project-badge-rank">Rank #4 · MedTech</span>
+              <span class="project-track-tag">Clinic Ops</span>
+            </div>
+            <div class="project-compact-title">ClinicFlow: Clinic Ops &amp; Billing Guard</div>
+            <p class="project-compact-problem">
+              Predicts patient no-shows to rebalance schedules and flags unbilled consults in real-time with elderly mode accessibility.
+            </p>
+            <div class="project-compact-tech">Predictive ML No-Show Engine + INR Billing Guard</div>
+          </div>
+
+          <div class="project-compact-card">
+            <div class="project-compact-header">
+              <span class="project-badge-rank">Rank #5 · Mobility</span>
+              <span class="project-track-tag">Last-Mile</span>
+            </div>
+            <div class="project-compact-title">RoutePulse: Voice-First Rider Co-Pilot</div>
+            <p class="project-compact-problem">
+              Hands-free voice assistant (Hinglish) &amp; dynamic routing for delivery riders — eliminating screen tapping at 40 km/h.
+            </p>
+            <div class="project-compact-tech">Multilingual Voice NLP + Fleet Telemetry</div>
+          </div>
+
+          <div class="project-compact-card">
+            <div class="project-compact-header">
+              <span class="project-badge-rank">Rank #6 · FinTech</span>
+              <span class="project-track-tag">Capital Markets</span>
+            </div>
+            <div class="project-compact-title">MacroLens: AI Macro-Intelligence for Funds</div>
+            <p class="project-compact-problem">
+              Parses global macro signals and earnings transcripts to auto-generate fund manager briefings with verified numeric citations.
+            </p>
+            <div class="project-compact-tech">LLM Summarisation + Fact-Verified Citation Engine</div>
+          </div>
+
+        </div>
+
+        <div class="eval-note-strip">
+          <p>✅ All prototypes stress-tested in live browser sandboxes with verified API tokens. Evaluated on: Novelty, Problem Relevance, Solution Design, Scalability &amp; Technical Feasibility. 100% Live Evidence Verified.</p>
+        </div>
+      </article>
+
+      <!-- PANEL 6: LEADERSHIP & ADVISORY (Right Panel on Sheet 2) -->
+      <article class="panel panel-inside-right">
+        <div class="section-head">
+          <span class="section-badge-tiny">Institutional Governance</span>
+          <h2>PATRONS &amp; LEADERSHIP</h2>
+          <p>Guiding the intersection of AI, management, and global enterprise.</p>
+        </div>
+
+        <div class="people-block">
+          
+          <div class="person-row">
+            <img src="assets/images/prabina_rajib.png" alt="Prof. Prabina Rajib" class="person-thumb-mini" />
+            <div class="person-text">
+              <h4>Prof. (Dr.) Prabina Rajib</h4>
+              <div class="person-role">Director, BIMTECH · Chief Patron</div>
+              <div class="person-bio">Ph.D. IIT Kharagpur; former Dean VGSoM; Member Secretary, Board of Governors. Leads BIMTECH's AI-first institutional vision.</div>
+            </div>
+          </div>
+
+          <div class="person-row">
+            <img src="assets/images/pankaj_priya.webp" alt="Prof. Pankaj Priya" class="person-thumb-mini" />
+            <div class="person-text">
+              <h4>Prof. (Dr.) Pankaj Priya</h4>
+              <div class="person-role">Dy. Director &amp; Dean (Academics) · Patron</div>
+              <div class="person-bio">Ph.D., BIT Mesra &amp; IIT Delhi; Member, Board of Governors. Professor of Marketing &amp; Retail. Champions applied AI in management education.</div>
+            </div>
+          </div>
+
+          <div class="person-row">
+            <img src="assets/images/pooja_misra.webp" alt="Prof. Pooja Misra" class="person-thumb-mini" />
+            <div class="person-text">
+              <h4>Prof. (Dr.) Pooja Misra</h4>
+              <div class="person-role">Chairperson – Economics · Patron</div>
+              <div class="person-bio">Ph.D., Delhi Univ.; 28+ yrs across American Express, Standard Chartered, Lazard &amp; academia. Drives AI-ethics integration.</div>
+            </div>
+          </div>
+
+          <div class="person-row" style="background:#eff6ff; border-color:#bfdbfe;">
+            <div class="person-initial-box">NS</div>
+            <div class="person-text">
+              <h4>Dr. Nikhil Srivastava</h4>
+              <div class="person-role">Convenor, AI Centre of Excellence</div>
+              <div class="person-bio">Leading practical AI adoption, fintech innovation, and student experiential learning labs at BIMTECH since inception.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- AI Advisory Board -->
+        <div class="section-head" style="margin-top: 8px;">
+          <span class="section-badge-tiny">Global Industry Council</span>
+          <h2 style="font-size:8.5pt; font-weight:800; color:var(--primary);">AI ADVISORY BOARD</h2>
+        </div>
+
+        <div class="advisory-block">
+
+          <div class="advisor-mini-card">
+            <div class="advisor-initial">VG</div>
+            <div class="advisor-text">
+              <h5>Varoon Govil</h5>
+              <div class="adv-org">Executive Director · MSCI Inc.</div>
+              <div class="adv-bio">Capital markets technology, enterprise AI, and financial data platforms. Brings global financial technology perspective to AI COE governance.</div>
+            </div>
+          </div>
+
+          <div class="advisor-mini-card">
+            <div class="advisor-initial">NG</div>
+            <div class="advisor-text">
+              <h5>Neeraj Gehani</h5>
+              <div class="adv-org">Global Product Director – AI/ML · dunnhumby</div>
+              <div class="adv-bio">Retail media AI, consumer science, personalisation at global scale. Guides students on product-led AI strategy and consumer intelligence.</div>
+            </div>
+          </div>
+
+          <div class="advisor-mini-card">
+            <div class="advisor-initial">SM</div>
+            <div class="advisor-text">
+              <h5>Dr. Saumendra Mohanty</h5>
+              <div class="adv-org">Distinguished AI Researcher &amp; Consultant · Honorary Professor of Practice</div>
+              <div class="adv-bio">Former Director (Govt Business), ValueFirst Digital Media (Tanla Platforms). Visiting Professor at Bennett University &amp; Lloyd Business School. AI trainer and policy advisor.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="panel-footer">
+          BIMTECH AI Centre of Excellence · www.bimtech.ac.in · Greater Noida, NCR
+        </div>
+      </article>
+
+    </section>
+
+  </main>
+
+  <script>
+    function toggleGuides() {
+      const pages = document.querySelectorAll('.brochure-page');
+      pages.forEach(p => p.classList.toggle('show-guides'));
+    }
+  </script>
+</body>
+</html>
