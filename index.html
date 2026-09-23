@@ -3,1133 +3,960 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Build Bootcamp & Hackathon 2026 – BIMTECH × Reskilll</title>
-  <meta name="description" content="AI Build Bootcamp & Hackathon 2026 at BIMTECH – Empowering Future Managers with AI Skills in collaboration with Reskilll." />
+  <title>BIMTECH AI Centre of Excellence | Interactive Recruiter Showcase</title>
+  <meta name="description" content="From AI Learning to AI Building: Developing management professionals who can use AI to solve real business problems. An interactive showcase for corporate recruiters." />
+  
+  <!-- Favicon & Themes -->
+  <meta name="theme-color" content="#060b19" />
+  
+  <!-- Google Fonts: Outfit & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    /* ─── RESET & BASE ─────────────────────────────────────────────── */
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-    :root {
-      --blue-deep:   #060d2b;
-      --blue-mid:    #0a1a5c;
-      --blue-bright: #1a4fff;
-      --cyan:        #00d4ff;
-      --purple:      #7c3aed;
-      --gold:        #f5c842;
-      --white:       #ffffff;
-      --white-80:    rgba(255,255,255,.80);
-      --white-50:    rgba(255,255,255,.50);
-      --white-20:    rgba(255,255,255,.20);
-      --white-10:    rgba(255,255,255,.10);
-      --card-bg:     rgba(255,255,255,.07);
-      --card-border: rgba(0,212,255,.25);
-      --glow-blue:   0 0 40px rgba(0,212,255,.35);
-      --glow-purple: 0 0 40px rgba(124,58,237,.4);
-      --radius-lg:   20px;
-      --radius-md:   14px;
-      --transition:  .55s cubic-bezier(.4,0,.2,1);
-    }
-
-    html, body {
-      width: 100%; height: 100%;
-      overflow: hidden;
-      background: var(--blue-deep);
-      font-family: 'Outfit', sans-serif;
-      color: var(--white);
-    }
-
-    /* ─── PARTICLES CANVAS ─────────────────────────────────────────── */
-    #particle-canvas {
-      position: fixed; inset: 0; z-index: 0;
-      pointer-events: none;
-    }
-
-    /* ─── GRID / STAGE ─────────────────────────────────────────────── */
-    #app {
-      position: fixed; inset: 0; z-index: 1;
-      display: grid;
-      grid-template-rows: 1fr auto;
-      grid-template-columns: 1fr 340px;
-      grid-template-areas:
-        "slide  avatar"
-        "controls controls";
-      gap: 0;
-    }
-
-    /* ─── SLIDE AREA ───────────────────────────────────────────────── */
-    #slide-container {
-      grid-area: slide;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 32px 28px 20px 40px;
-      overflow: hidden;
-    }
-
-    /* Background glow blob */
-    #slide-container::before {
-      content: '';
-      position: absolute;
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(26,79,255,.18) 0%, transparent 70%);
-      top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      pointer-events: none;
-    }
-
-    .slide {
-      display: none;
-      flex-direction: column;
-      justify-content: flex-start;
-      width: 100%; max-width: 860px;
-      height: 100%;
-      animation: slideIn .55s cubic-bezier(.4,0,.2,1);
-      position: relative;
-      z-index: 2;
-    }
-    .slide.active { display: flex; }
-
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(32px) scale(.97); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    @keyframes slideOut {
-      from { opacity: 1; transform: translateY(0); }
-      to   { opacity: 0; transform: translateY(-24px); }
-    }
-
-    /* ─── SLIDE COMPONENTS ─────────────────────────────────────────── */
-    .slide-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(0,212,255,.12);
-      border: 1px solid rgba(0,212,255,.4);
-      border-radius: 30px;
-      padding: 6px 18px;
-      font-size: .78rem;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      margin-bottom: 18px;
-      width: fit-content;
-    }
-    .slide-badge .dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--cyan);
-      animation: pulseDot 1.6s infinite;
-    }
-    @keyframes pulseDot {
-      0%,100% { transform: scale(1); opacity:1; }
-      50% { transform: scale(1.5); opacity:.5; }
-    }
-
-    .slide h1 {
-      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
-      font-weight: 900;
-      line-height: 1.15;
-      background: linear-gradient(135deg, #fff 30%, var(--cyan) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 10px;
-    }
-    .slide h2 {
-      font-size: clamp(1.5rem, 2.8vw, 2.2rem);
-      font-weight: 800;
-      line-height: 1.2;
-      background: linear-gradient(135deg, #fff 40%, var(--cyan) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 12px;
-    }
-
-    .subtitle {
-      font-size: 1.05rem;
-      font-weight: 400;
-      color: var(--cyan);
-      letter-spacing: .04em;
-      margin-bottom: 6px;
-    }
-    .date-badge {
-      display: inline-flex;
-      gap: 10px;
-      align-items: center;
-      background: linear-gradient(90deg, rgba(124,58,237,.25), rgba(26,79,255,.2));
-      border: 1px solid rgba(124,58,237,.4);
-      border-radius: 8px;
-      padding: 8px 18px;
-      font-size: .92rem;
-      font-weight: 600;
-      color: #c4aaff;
-      margin-bottom: 24px;
-    }
-
-    .divider {
-      width: 64px; height: 3px;
-      background: linear-gradient(90deg, var(--cyan), var(--blue-bright));
-      border-radius: 2px;
-      margin-bottom: 20px;
-    }
-
-    .glass-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-lg);
-      padding: 22px 26px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      margin-bottom: 16px;
-    }
-    .glass-card h3 {
-      font-size: 1.0rem;
-      font-weight: 700;
-      color: var(--cyan);
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      margin-bottom: 12px;
-      display: flex; align-items: center; gap: 8px;
-    }
-    .glass-card h3 .icon { font-size: 1.1em; }
-    .glass-card p {
-      font-size: .93rem;
-      line-height: 1.7;
-      color: var(--white-80);
-    }
-
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-
-    ul.bullet-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-    }
-    ul.bullet-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: .91rem;
-      color: var(--white-80);
-      line-height: 1.5;
-    }
-    ul.bullet-list li::before {
-      content: '';
-      flex-shrink: 0;
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--cyan);
-      margin-top: 6px;
-      box-shadow: 0 0 8px var(--cyan);
-    }
-
-    .outcome-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: rgba(0,212,255,.10);
-      border: 1px solid rgba(0,212,255,.3);
-      border-radius: 6px;
-      padding: 7px 14px;
-      font-size: .84rem;
-      font-weight: 600;
-      color: var(--cyan);
-    }
-    .outcome-tag span { color: #4ade80; font-size: 1.05em; }
-
-    .outcomes-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin-top: 10px;
-    }
-
-    .day-card {
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: var(--radius-md);
-      padding: 18px 20px;
-    }
-    .day-card .day-label {
-      font-size: .78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      color: var(--cyan);
-      margin-bottom: 8px;
-    }
-    .day-card h4 {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 10px;
-    }
-
-    .arrow-flow {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-    .flow-step {
-      background: rgba(124,58,237,.2);
-      border: 1px solid rgba(124,58,237,.4);
-      border-radius: 10px;
-      padding: 10px 16px;
-      font-size: .84rem;
-      font-weight: 600;
-      color: #c4aaff;
-      text-align: center;
-      width: 100%;
-    }
-    .flow-arrow {
-      color: var(--cyan);
-      font-size: 1.2rem;
-      line-height: 1;
-    }
-
-    .pitch-card {
-      background: linear-gradient(135deg, rgba(124,58,237,.2), rgba(26,79,255,.15));
-      border: 1px solid rgba(124,58,237,.5);
-      border-radius: var(--radius-md);
-      padding: 18px 20px;
-      text-align: center;
-    }
-    .pitch-card .pitch-date {
-      font-size: .78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      color: var(--gold);
-      margin-bottom: 6px;
-    }
-    .pitch-card h4 {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 12px;
-    }
-
-    .benefit-pill {
-      background: rgba(245,200,66,.10);
-      border: 1px solid rgba(245,200,66,.3);
-      border-radius: 8px;
-      padding: 8px 14px;
-      font-size: .82rem;
-      font-weight: 600;
-      color: var(--gold);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .vision-quote {
-      background: linear-gradient(135deg, rgba(124,58,237,.18), rgba(0,212,255,.08));
-      border-left: 4px solid var(--cyan);
-      border-radius: 0 var(--radius-md) var(--radius-md) 0;
-      padding: 18px 22px;
-      font-size: 1.1rem;
-      font-style: italic;
-      color: var(--white-80);
-      margin: 16px 0;
-    }
-
-    .journey-flow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      padding: 16px 0;
-    }
-    .journey-step {
-      background: rgba(26,79,255,.2);
-      border: 1px solid rgba(26,79,255,.5);
-      border-radius: 8px;
-      padding: 10px 18px;
-      font-size: .82rem;
-      font-weight: 700;
-      color: var(--cyan);
-      text-align: center;
-      white-space: nowrap;
-    }
-    .journey-arrow {
-      color: var(--white-50);
-      font-size: 1rem;
-    }
-
-    .stat-pill {
-      background: linear-gradient(135deg, rgba(0,212,255,.12), rgba(26,79,255,.12));
-      border: 1px solid rgba(0,212,255,.3);
-      border-radius: 10px;
-      padding: 14px 16px;
-      text-align: center;
-    }
-    .stat-pill .num {
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--cyan);
-      line-height: 1;
-    }
-    .stat-pill .label {
-      font-size: .75rem;
-      font-weight: 500;
-      color: var(--white-60, rgba(255,255,255,.6));
-      margin-top: 4px;
-    }
-
-    /* ─── AVATAR PANEL ─────────────────────────────────────────────── */
-    #avatar-panel {
-      grid-area: avatar;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      padding: 20px 20px 0 10px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    #avatar-panel::before {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 50%;
-      transform: translateX(-50%);
-      width: 280px; height: 280px;
-      background: radial-gradient(circle, rgba(0,212,255,.18) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .avatar-ring {
-      position: relative;
-      width: 260px;
-      height: 370px;
-      flex-shrink: 0;
-    }
-
-    .avatar-ring::before {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, var(--cyan), var(--blue-bright), var(--purple));
-      animation: ringRotate 4s linear infinite;
-      z-index: 0;
-    }
-    @keyframes ringRotate {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
-    }
-
-    #avatar-img {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 18px;
-      display: block;
-      /* Subtle breathing idle movement by default */
-      animation: avatarIdle 6s ease-in-out infinite;
-      transform-origin: bottom center;
-      transition: all 0.5s ease;
-    }
-
-    /* Active speaking body movement when speaking */
-    .avatar-ring.speaking #avatar-img {
-      animation: avatarSpeaking 4s ease-in-out infinite;
-    }
-
-    @keyframes avatarIdle {
-      0%, 100% { transform: scale(1) translateY(0) rotate(0deg); }
-      50% { transform: scale(1.012) translateY(-3px) rotate(0.3deg); }
-    }
-
-    @keyframes avatarSpeaking {
-      0%, 100% { transform: scale(1.02) translateY(-2px) rotate(-0.5deg); }
-      25% { transform: scale(1.028) translateY(-5px) rotate(0.5deg); }
-      50% { transform: scale(1.022) translateY(-2px) rotate(-0.3deg); }
-      75% { transform: scale(1.03) translateY(-4px) rotate(0.8deg); }
-    }
-
-
-    /* Mouth / lip sync overlay */
-    .mouth-overlay {
-      position: absolute;
-      bottom: 18%;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      pointer-events: none;
-    }
-    .sound-bar {
-      display: flex;
-      align-items: flex-end;
-      gap: 3px;
-      height: 24px;
-    }
-    .sound-bar .bar {
-      width: 4px;
-      height: 4px;
-      border-radius: 3px;
-      background: linear-gradient(to top, var(--cyan), var(--blue-bright));
-      opacity: 0.3;
-      transition: height 0.06s ease, opacity 0.06s ease;
-    }
-
-    /* speech bubble */
-    #speech-bubble {
-      position: absolute;
-      top: 10px; left: 0; right: 0;
-      margin: 0 10px;
-      background: rgba(6,13,43,.88);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 12px 15px;
-      font-size: .78rem;
-      line-height: 1.55;
-      color: var(--white-80);
-      backdrop-filter: blur(10px);
-      min-height: 90px;
-      z-index: 20;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-    }
-    #speech-bubble .speaker-name {
-      font-weight: 700;
-      font-size: .7rem;
-      color: var(--cyan);
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      margin-bottom: 5px;
-    }
-    #speech-text {
-      font-family: 'Inter', sans-serif;
-    }
-
-    /* typing cursor */
-    .cursor {
-      display: inline-block;
-      width: 2px; height: 14px;
-      background: var(--cyan);
-      vertical-align: middle;
-      margin-left: 2px;
-      animation: blink .7s step-start infinite;
-    }
-    @keyframes blink { 50% { opacity: 0; } }
-
-    /* avatar name badge */
-    .avatar-name {
-      position: absolute;
-      bottom: 6px; left: 0; right: 0;
-      text-align: center;
-      font-size: .76rem;
-      font-weight: 700;
-      color: var(--cyan);
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    /* ─── CONTROLS BAR ─────────────────────────────────────────────── */
-    #controls {
-      grid-area: controls;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      padding: 14px 40px 20px;
-      background: linear-gradient(to top, rgba(6,13,43,.95), transparent);
-      position: relative;
-      z-index: 10;
-    }
-
-    .ctrl-btn {
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.18);
-      color: var(--white);
-      border-radius: 50px;
-      padding: 10px 22px;
-      font-family: 'Outfit', sans-serif;
-      font-size: .88rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all .25s ease;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-    .ctrl-btn:hover {
-      background: rgba(0,212,255,.15);
-      border-color: rgba(0,212,255,.5);
-      color: var(--cyan);
-      box-shadow: 0 0 20px rgba(0,212,255,.2);
-    }
-    .ctrl-btn:disabled {
-      opacity: .3;
-      cursor: not-allowed;
-    }
-    .ctrl-btn.primary {
-      background: linear-gradient(135deg, var(--blue-bright), var(--purple));
-      border: none;
-      padding: 12px 30px;
-      font-size: .95rem;
-    }
-    .ctrl-btn.primary:hover {
-      filter: brightness(1.2);
-      box-shadow: var(--glow-purple);
-    }
-
-    #slide-counter {
-      background: rgba(0,212,255,.1);
-      border: 1px solid rgba(0,212,255,.2);
-      border-radius: 20px;
-      padding: 8px 20px;
-      font-size: .84rem;
-      font-weight: 600;
-      color: var(--cyan);
-    }
-
-    /* progress dots */
-    #progress-dots {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-    .prog-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.2);
-      transition: all .3s ease;
-      cursor: pointer;
-    }
-    .prog-dot.active {
-      background: var(--cyan);
-      width: 28px;
-      border-radius: 4px;
-      box-shadow: 0 0 10px var(--cyan);
-    }
-
-    /* speak toggle */
-    #speak-toggle {
-      position: fixed;
-      top: 20px; right: 20px;
-      z-index: 100;
-    }
-    #speak-toggle .ctrl-btn {
-      padding: 10px 16px;
-      font-size: .82rem;
-    }
-
-    /* slide number badge */
-    .slide-num {
-      position: absolute;
-      top: 24px; right: 24px;
-      width: 42px; height: 42px;
-      border-radius: 50%;
-      background: rgba(0,212,255,.15);
-      border: 1px solid rgba(0,212,255,.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: .8rem;
-      font-weight: 800;
-      color: var(--cyan);
-    }
-
-    /* Fullscreen mode hint */
-    #fullscreen-hint {
-      position: fixed; bottom: 80px; right: 20px;
-      font-size: .7rem;
-      color: var(--white-50);
-      z-index: 5;
-      cursor: pointer;
-      display: flex; align-items: center; gap: 5px;
-    }
-
-    /* Accessibility – reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation: none !important; transition: none !important; }
-    }
-  </style>
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-<canvas id="particle-canvas"></canvas>
+  <!-- Ambient Visual Canvas Background -->
+  <div class="ambient-bg"></div>
+  <div class="ambient-grid"></div>
 
-<div id="speak-toggle" style="display: flex; gap: 8px; align-items: center;">
-  <span id="voice-badge" style="background: rgba(6,13,43,0.85); border: 1px solid rgba(0,212,255,0.4); color: var(--cyan); padding: 10px 16px; border-radius: 20px; font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
-    🎙️ AI Voice (Prabhat)
-  </span>
-  <button class="ctrl-btn primary" id="btn-speak" onclick="toggleSpeak()">▶ Play Presentation</button>
-</div>
+  <!-- ─── STICKY CORPORATE NAVBAR ─── -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-brand">
+        <div class="brand-logo-badge">AI</div>
+        <div class="brand-text-col">
+          <span class="brand-title">BIMTECH</span>
+          <span class="brand-sub">AI Centre of Excellence</span>
+        </div>
+      </a>
 
-<div id="app">
-  <!-- ══════════════════════ SLIDES ══════════════════════ -->
-  <div id="slide-container">
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="#hero" class="nav-link active">Overview</a></li>
+          <li><a href="#what-we-do" class="nav-link">What We Do</a></li>
+          <li><a href="#journey" class="nav-link">Prototype Journey</a></li>
+          <li><a href="#bootcamp-timeline" class="nav-link">Bootcamp & Hackathon</a></li>
+          <li><a href="#student-projects" class="nav-link">Top 10 Projects</a></li>
+          <li><a href="#recruiter-matrix" class="nav-link">Recruiter Matrix</a></li>
+          <li><a href="#leadership-board" class="nav-link">Patrons & Board</a></li>
+          <li><a href="#action-gallery" class="nav-link">Gallery</a></li>
+          <li><a href="#ask-ai" class="nav-link">Ask AI Centre</a></li>
+        </ul>
+      </nav>
 
-    <!-- SLIDE 1 ─────────────────────────── -->
-    <section class="slide active" id="slide-1" data-script="Welcome to the AI Build Bootcamp and Hackathon 2026 at BIMTECH. This flagship event, held on 7th and 8th August 2026, is organized in collaboration with Reskilll. We are here to empower future managers with real, hands-on AI skills. Artificial Intelligence is transforming every business function — from Finance and Marketing to HR, Operations, and Strategy. Tomorrow's managers will not only use AI, but build AI-enabled business solutions. Our objective is to equip every first-year MBA student with hands-on experience in designing and building AI-powered business applications.">
-      <div class="slide-num">01</div>
-      <div class="slide-badge"><span class="dot"></span>BIMTECH × Reskilll</div>
-      <h1>AI Build Bootcamp<br/>&amp; Hackathon 2026</h1>
-      <div class="subtitle">Empowering Future Managers with AI Skills</div>
-      <div class="date-badge">📅 7–8 August 2026 &nbsp;|&nbsp; 9:00 AM – 7:00 PM</div>
-      <div class="divider"></div>
-      <div class="two-col">
-        <div class="glass-card">
-          <h3><span class="icon">🤔</span>Why This Initiative?</h3>
-          <p>AI is transforming every business function — Finance, Marketing, HR, Operations &amp; Strategy. Tomorrow's managers will not only <em>use</em> AI but also <em>build</em> AI-enabled solutions.</p>
-        </div>
-        <div class="glass-card">
-          <h3><span class="icon">🎯</span>Objective</h3>
-          <p>Equip every first-year MBA student with hands-on experience in designing and building AI-powered business applications.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 2 ─────────────────────────── -->
-    <section class="slide" id="slide-2" data-script="Why does this matter to our students? AI is rapidly becoming a core management competency. Through this bootcamp and hackathon, students will learn to convert business problems into AI solutions, work collaboratively in multidisciplinary teams, build AI-enabled prototypes without extensive coding, develop innovation and design thinking skills, and present solutions before industry experts. The outcomes are truly exciting — hands-on AI exposure, practical problem-solving, real industry interaction, an innovation mindset, and portfolio-worthy projects. As we say: Learn AI by Building, Not Just by Reading.">
-      <div class="slide-num">02</div>
-      <div class="slide-badge"><span class="dot"></span>Student Impact</div>
-      <h2>Why This Matters<br/>to Our Students</h2>
-      <div class="divider"></div>
-      <div class="two-col" style="margin-bottom:14px;">
-        <div class="glass-card">
-          <h3><span class="icon">🧠</span>Students Will Learn To</h3>
-          <ul class="bullet-list">
-            <li>Convert business problems into AI solutions</li>
-            <li>Work collaboratively in multidisciplinary teams</li>
-            <li>Build AI-enabled prototypes without extensive coding</li>
-            <li>Develop innovation &amp; design-thinking skills</li>
-            <li>Present solutions before industry experts</li>
-          </ul>
-        </div>
-        <div class="glass-card">
-          <h3><span class="icon">🏆</span>Outcomes</h3>
-          <div class="outcomes-grid">
-            <div class="outcome-tag"><span>✔</span> Hands-on AI exposure</div>
-            <div class="outcome-tag"><span>✔</span> Practical problem-solving</div>
-            <div class="outcome-tag"><span>✔</span> Industry interaction</div>
-            <div class="outcome-tag"><span>✔</span> Innovation mindset</div>
-            <div class="outcome-tag"><span>✔</span> Portfolio-worthy projects</div>
-          </div>
-        </div>
-      </div>
-      <div class="vision-quote">
-        "Learn AI by Building, Not Just by Reading."
-      </div>
-    </section>
-
-    <!-- SLIDE 3 ─────────────────────────── -->
-    <section class="slide" id="slide-3" data-script="Let me walk you through the event structure. On Day 1, the 7th of August, students will participate in the AI Bootcamp. This includes an introduction to AI tools, guided hands-on sessions, team formation, and problem statement briefing. On Day 2, the 8th of August, the AI Hackathon begins — students develop prototypes with mentoring support, make project submissions, and get evaluated by Reskilll. Then comes the exciting Pitch Day on 19th August, where the Top 10 teams present before industry experts, advisory committee, and faculty jury. The Top 3 teams will be specially rewarded!">
-      <div class="slide-num">03</div>
-      <div class="slide-badge"><span class="dot"></span>Event Structure</div>
-      <h2>AI Build Bootcamp<br/>&amp; Hackathon</h2>
-      <div class="divider"></div>
-      <div class="three-col">
-        <div class="day-card">
-          <div class="day-label">📅 Day 1 – 7 August</div>
-          <h4>AI Bootcamp</h4>
-          <ul class="bullet-list">
-            <li>Introduction to AI tools</li>
-            <li>Guided hands-on sessions</li>
-            <li>Team formation</li>
-            <li>Problem statement briefing</li>
-          </ul>
-        </div>
-        <div class="day-card">
-          <div class="day-label">🚀 Day 2 – 8 August</div>
-          <h4>AI Hackathon</h4>
-          <ul class="bullet-list">
-            <li>Prototype development</li>
-            <li>Mentoring support</li>
-            <li>Project submission</li>
-            <li>Evaluation by Reskilll</li>
-          </ul>
-        </div>
-        <div class="pitch-card">
-          <div class="pitch-date">🏅 19 August – Pitch Day</div>
-          <h4>Top 10 Teams</h4>
-          <div class="arrow-flow">
-            <div class="flow-step">Industry Experts</div>
-            <div class="flow-arrow">↓</div>
-            <div class="flow-step">Advisory Committee</div>
-            <div class="flow-arrow">↓</div>
-            <div class="flow-step">Faculty Jury</div>
-            <div class="flow-arrow">↓</div>
-            <div class="flow-step" style="background:rgba(245,200,66,.18); border-color:rgba(245,200,66,.5); color:var(--gold);">🥇 Top 3 Rewarded</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 4 ─────────────────────────── -->
-    <section class="slide" id="slide-4" data-script="Programme Chairs play a critical role in making this initiative truly successful. We need your support in encouraging maximum student participation, ensuring students attend as per batch allocation, minimizing class disruptions during the event, motivating students to treat the hackathon as a genuine learning opportunity, and coordinating with faculty mentors wherever required. In return, students will receive a joint BIMTECH and Reskilll participation certificate, industry exposure, an AI portfolio project, recognition for top teams, and an incredible opportunity to present before industry leaders.">
-      <div class="slide-num">04</div>
-      <div class="slide-badge"><span class="dot"></span>Your Role Matters</div>
-      <h2>Role of Programme Chairs</h2>
-      <div class="divider"></div>
-      <p style="font-size:.9rem; color:var(--white-80); margin-bottom:16px;">Programme Chairs play a <strong style="color:var(--cyan);">critical role</strong> in making this initiative successful.</p>
-      <div class="two-col">
-        <div class="glass-card">
-          <h3><span class="icon">🤝</span>Support Required</h3>
-          <ul class="bullet-list">
-            <li>Encourage maximum student participation</li>
-            <li>Ensure students attend as per batch allocation</li>
-            <li>Minimise class disruptions during the event</li>
-            <li>Motivate students to treat it as a learning opportunity</li>
-            <li>Coordinate with faculty mentors wherever required</li>
-          </ul>
-        </div>
-        <div class="glass-card">
-          <h3><span class="icon">🎁</span>Student Benefits</h3>
-          <div style="display:flex; flex-direction:column; gap:9px;">
-            <div class="benefit-pill">🏆 Joint BIMTECH–Reskilll Certificate</div>
-            <div class="benefit-pill">🏭 Industry Exposure</div>
-            <div class="benefit-pill">💼 AI Portfolio Project</div>
-            <div class="benefit-pill">🥇 Recognition for Top Teams</div>
-            <div class="benefit-pill">🎙️ Present Before Industry Leaders</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 5 ─────────────────────────── -->
-    <section class="slide" id="slide-5" data-script="This is more than just a hackathon. It is the first flagship initiative of the AI Centre of Excellence at BIMTECH. Our vision is to create AI-literate management professionals capable of solving real business challenges using AI. Our journey is clear: from the AI Bootcamp, to the AI Hackathon, to the Pitch Day, to the formal launch of our AI Centre of Excellence, then to industry projects, and ultimately building a full AI Innovation Ecosystem at BIMTECH. Together, we are shaping the future of management education in India. Thank you.">
-      <div class="slide-num">05</div>
-      <div class="slide-badge"><span class="dot"></span>Bigger Picture</div>
-      <h2>Building the AI Culture<br/>at BIMTECH</h2>
-      <div class="divider"></div>
-      <div class="vision-quote">
-        "This is the first flagship initiative of the<br/>
-        <strong style="color:var(--cyan); font-style:normal;">AI Centre of Excellence</strong>"
-      </div>
-      <div class="glass-card" style="margin-bottom:14px;">
-        <h3><span class="icon">🌟</span>Vision</h3>
-        <p>Create AI-literate management professionals capable of solving real business challenges using AI.</p>
-      </div>
-      <div class="glass-card">
-        <h3><span class="icon">🗺️</span>Our Journey</h3>
-        <div class="journey-flow">
-          <div class="journey-step">AI Bootcamp</div>
-          <div class="journey-arrow">→</div>
-          <div class="journey-step">AI Hackathon</div>
-          <div class="journey-arrow">→</div>
-          <div class="journey-step">Pitch Day</div>
-          <div class="journey-arrow">→</div>
-          <div class="journey-step">AI Centre of Excellence</div>
-          <div class="journey-arrow">→</div>
-          <div class="journey-step">Industry Projects</div>
-          <div class="journey-arrow">→</div>
-          <div class="journey-step" style="background:rgba(245,200,66,.15); border-color:rgba(245,200,66,.4); color:var(--gold);">🚀 AI Innovation Ecosystem</div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- ══════════════════════ AVATAR PANEL ══════════════════════ -->
-  <div id="avatar-panel">
-    <div id="speech-bubble">
-      <div class="speaker-name">AI Presenter – Nikhil</div>
-      <div id="speech-text">Welcome! Click <strong>Narrate</strong> to hear me present each slide with voice narration. Use the controls below to navigate. Let's begin!</div>
-    </div>
-
-    <div class="avatar-ring">
-      <img
-        id="avatar-img"
-        src="./male_avatar_presenter.png"
-        alt="AI Presenter - Nikhil"
-      />
-      <!-- Lip sync bars overlay -->
-      <div class="mouth-overlay" id="mouth-overlay">
-        <div class="sound-bar" id="sound-bar">
-          <div class="bar" style="height:14px;"></div>
-          <div class="bar" style="height:20px;"></div>
-          <div class="bar" style="height:10px;"></div>
-          <div class="bar" style="height:24px;"></div>
-          <div class="bar" style="height:16px;"></div>
-          <div class="bar" style="height:20px;"></div>
-          <div class="bar" style="height:12px;"></div>
-        </div>
+      <div class="nav-actions">
+        <a href="brochure.html" target="_blank" class="btn btn-secondary btn-sm" title="Printable A4 Tri-Fold Recruiter Brochure">
+          📄 Placement Brochure
+        </a>
+        <button id="sound-toggle-master" class="sound-toggle-btn" title="Toggle AI voice narration">
+          🔊 Audio: Ready
+        </button>
+        <a href="#recruiter-cta" class="btn btn-primary btn-sm">Connect With Us</a>
+        <button class="nav-toggle-mobile" aria-label="Toggle navigation">☰</button>
       </div>
     </div>
-    <div class="avatar-name">Nikhil · AI Presenter</div>
+  </header>
+
+  <!-- ─── SECTION 1: CINEMATIC OPENING (MEET AI JOSEPH) ─── -->
+  <section id="hero" class="hero-section">
+    <div class="container">
+      <div class="hero-grid">
+        
+        <!-- Left: Editorial Positioning -->
+        <div class="hero-content">
+          <div class="badge">
+            <span class="badge-dot"></span> Interactive Recruiter Showcase
+          </div>
+          <span class="hero-institution">Birla Institute of Management Technology</span>
+          <h1 class="hero-main-title">
+            AI CENTRE OF <br /><span class="text-gradient">EXCELLENCE</span>
+          </h1>
+          <p class="hero-tagline-sub">
+            Building the next generation of AI-enabled management professionals who can use AI to solve real business problems.
+          </p>
+
+          <div class="sound-notice-box">
+            <span>🎧</span>
+            <span><strong>Best experienced with sound on.</strong> Hear AI Joseph introduce what our students are building.</span>
+          </div>
+
+          <div class="hero-cta-group">
+            <a href="#landing-positioning" class="btn btn-primary">
+              Explore The AI Centre →
+            </a>
+            <a href="#ask-ai" class="btn btn-secondary">
+              Ask AI Joseph 💬
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: AI Joseph Avatar Stage Card -->
+        <div class="avatar-stage-card">
+          <div class="stage-top-bar">
+            <div class="ai-status-indicator">
+              <span class="ai-status-pulse"></span>
+              <span>AI Joseph • AI Centre Guide</span>
+            </div>
+            <span class="stage-mode-label">Interactive Presenter</span>
+          </div>
+
+          <div class="avatar-visual-wrapper">
+            <img src="assets/images/ai_joseph.png" alt="AI Joseph Presenter" class="avatar-image" id="hero-avatar-img" />
+            
+            <div class="visualizer-overlay">
+              <div class="wave-bars">
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="stage-player-controls">
+            <button id="play-hero-ai" class="play-action-btn">
+              <span class="icon">▶</span> Listen to AI Joseph
+            </button>
+            <span class="playback-timer" id="hero-ai-timer">00:00 / 00:30</span>
+          </div>
+
+          <div class="speech-caption-box" id="hero-caption-display">
+            <div class="caption-label">Transcript • Meet AI Joseph</div>
+            <p class="caption-text-highlight">
+              “Hello, I’m Joseph, your AI Guide to the AI Centre of Excellence at BIMTECH. At BIMTECH, our students are moving beyond learning about Artificial Intelligence. They are learning to use Generative AI, build AI agents and explore agentic workflows to solve real business problems. We recently brought together more than 500 students through our AI Build Bootcamp and Hackathon. So, let me show you what they are building.”
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 2: MAIN LANDING & METRICS ─── -->
+  <section id="landing-positioning" class="section section-alt">
+    <div class="container">
+      
+      <!-- Core Positioning Card -->
+      <div class="positioning-card">
+        <div class="core-tag-banner">From AI Learning to AI Building</div>
+        <h2 class="positioning-statement">
+          AI IS CHANGING BUSINESS. <br />
+          <span class="text-gradient">WE ARE CHANGING HOW STUDENTS PREPARE FOR IT.</span>
+        </h2>
+        <p class="positioning-desc">
+          The BIMTECH AI Centre of Excellence brings together management education, Artificial Intelligence, experimentation and industry engagement. Our focus is simple: <strong>help students move from AI awareness to AI application.</strong>
+        </p>
+      </div>
+
+      <!-- 4 Animated Metrics Counters -->
+      <div class="counters-grid">
+        <div class="counter-card">
+          <div class="counter-number" data-count="500" data-suffix="+">500+</div>
+          <div class="counter-label">Students Engaged</div>
+          <div class="counter-sub">Across PGDM disciplines</div>
+        </div>
+
+        <div class="counter-card">
+          <div class="counter-number" data-count="AI BUILD">AI BUILD</div>
+          <div class="counter-label">Bootcamp & Hackathon</div>
+          <div class="counter-sub">Hands-on intensive creation</div>
+        </div>
+
+        <div class="counter-card">
+          <div class="counter-number" data-count="10" data-prefix="TOP ">TOP 10</div>
+          <div class="counter-label">Grand Finale Teams</div>
+          <div class="counter-sub">Deployable business prototypes</div>
+        </div>
+
+        <div class="counter-card">
+          <div class="counter-number" data-count="AI + BIZ">AI + BIZ</div>
+          <div class="counter-label">Our Core Approach</div>
+          <div class="counter-sub">Tech anchored in ROI & value</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── SECTION 3: WHAT WE DO (4 INTERACTIVE CARDS) ─── -->
+  <section id="what-we-do" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge"><span class="badge-dot"></span> Core Curriculum Pillars</span>
+        <h2 class="section-title">WHAT WE DO</h2>
+        <p class="section-subtitle">
+          Preparing managers who don't just speak the language of AI, but orchestrate systems that create tangible business value.
+        </p>
+      </div>
+
+      <div class="pillars-grid">
+        
+        <!-- Card 1: Generative AI -->
+        <div class="pillar-card" data-pillar="genai">
+          <div>
+            <div class="pillar-icon-box">🤖</div>
+            <h3 class="pillar-title">GENERATIVE AI</h3>
+            <div class="pillar-tagline">From prompting to productivity</div>
+            <p class="pillar-desc">
+              Students explore how Generative AI can support research, analysis, communication, ideation and business decision-making with rigorous guardrails.
+            </p>
+          </div>
+          <div class="pillar-action-link">Explore Pillar →</div>
+        </div>
+
+        <!-- Card 2: AI Agents -->
+        <div class="pillar-card" data-pillar="agents">
+          <div>
+            <div class="pillar-icon-box">🧠</div>
+            <h3 class="pillar-title">AI AGENTS</h3>
+            <div class="pillar-tagline">AI that performs tasks</div>
+            <p class="pillar-desc">
+              Students explore task-specific AI agents designed to retrieve structured data, analyse unstructured customer feedback, and execute business processes.
+            </p>
+          </div>
+          <div class="pillar-action-link">Explore Pillar →</div>
+        </div>
+
+        <!-- Card 3: Agentic AI -->
+        <div class="pillar-card" data-pillar="agentic">
+          <div>
+            <div class="pillar-icon-box">⚡</div>
+            <h3 class="pillar-title">AGENTIC AI</h3>
+            <div class="pillar-tagline">AI that works through workflows</div>
+            <p class="pillar-desc">
+              Students explore multi-step AI workflows where systems can reason, use external APIs, validate calculations deterministically, and iterate autonomously.
+            </p>
+          </div>
+          <div class="pillar-action-link">Explore Pillar →</div>
+        </div>
+
+        <!-- Card 4: AI + Business -->
+        <div class="pillar-card" data-pillar="business">
+          <div>
+            <div class="pillar-icon-box">💼</div>
+            <h3 class="pillar-title">AI + BUSINESS</h3>
+            <div class="pillar-tagline">Technology meets management</div>
+            <p class="pillar-desc">
+              Students approach AI from the perspective of real business problems, customer needs, unit economics, risk compliance, and measurable ROI.
+            </p>
+          </div>
+          <div class="pillar-action-link">Explore Pillar →</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 4: FROM PROBLEM TO PROTOTYPE (HORIZONTAL JOURNEY) ─── -->
+  <section id="journey" class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge"><span class="badge-dot"></span> The Builder Methodology</span>
+        <h2 class="section-title">FROM PROBLEM TO PROTOTYPE</h2>
+        <p class="section-subtitle">
+          An animated horizontal journey demonstrating how BIMTECH students translate corporate challenges into functional solutions.
+        </p>
+      </div>
+
+      <div class="journey-timeline-wrapper">
+        <div class="journey-track">
+          
+          <div class="journey-step-card" data-step="0">
+            <div class="step-number">01</div>
+            <div class="step-label">IDENTIFY</div>
+            <div class="step-question">What is the business problem?</div>
+            <div class="journey-arrow-indicator">→</div>
+          </div>
+
+          <div class="journey-step-card" data-step="1">
+            <div class="step-number">02</div>
+            <div class="step-label">THINK</div>
+            <div class="step-question">Where can AI create value?</div>
+            <div class="journey-arrow-indicator">→</div>
+          </div>
+
+          <div class="journey-step-card" data-step="2">
+            <div class="step-number">03</div>
+            <div class="step-label">BUILD</div>
+            <div class="step-question">Can we turn the idea into a working prototype?</div>
+            <div class="journey-arrow-indicator">→</div>
+          </div>
+
+          <div class="journey-step-card" data-step="3">
+            <div class="step-number">04</div>
+            <div class="step-label">TEST</div>
+            <div class="step-question">Does the solution actually work?</div>
+            <div class="journey-arrow-indicator">→</div>
+          </div>
+
+          <div class="journey-step-card" data-step="4">
+            <div class="step-number">05</div>
+            <div class="step-label">PITCH</div>
+            <div class="step-question">Can we communicate its business value?</div>
+            <div class="journey-arrow-indicator">→</div>
+          </div>
+
+          <div class="journey-step-card" data-step="5">
+            <div class="step-number">06</div>
+            <div class="step-label">IMPROVE</div>
+            <div class="step-question">How can the solution become more useful?</div>
+          </div>
+
+        </div>
+
+        <div class="journey-bottom-statement">
+          <p>“This is how we want our students to think about AI.”</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 5: AI BUILD BOOTCAMP & HACKATHON 2026 ─── -->
+  <section id="bootcamp-timeline" class="section">
+    <div class="container">
+      
+      <div class="bootcamp-banner">
+        <div class="bootcamp-dates">7–8 AUGUST 2026</div>
+        <h2 class="bootcamp-title">FROM 500+ STUDENTS TO AI PROTOTYPES</h2>
+        <p class="bootcamp-statement">
+          The objective was not simply to teach students how AI works. <br />
+          <strong>It was to make them build with AI.</strong>
+        </p>
+      </div>
+
+      <!-- Animated Timeline Pipeline Tabs -->
+      <div class="timeline-pipeline" id="bootcamp-pipeline-tabs">
+        <div class="timeline-node active" data-phase="0">
+          <div class="node-step-index">Phase 1</div>
+          <div class="node-title">AI Workshop</div>
+        </div>
+        <div class="timeline-node" data-phase="1">
+          <div class="node-step-index">Phase 2</div>
+          <div class="node-title">Hands-on Learning</div>
+        </div>
+        <div class="timeline-node" data-phase="2">
+          <div class="node-step-index">Phase 3</div>
+          <div class="node-title">Problem Discovery</div>
+        </div>
+        <div class="timeline-node" data-phase="3">
+          <div class="node-step-index">Phase 4</div>
+          <div class="node-title">Prototyping Sprint</div>
+        </div>
+        <div class="timeline-node" data-phase="4">
+          <div class="node-step-index">Phase 5</div>
+          <div class="node-title">48-Hr Hackathon</div>
+        </div>
+        <div class="timeline-node" data-phase="5">
+          <div class="node-step-index">Phase 6</div>
+          <div class="node-title">Top 10 Selection</div>
+        </div>
+        <div class="timeline-node highlight" data-phase="6">
+          <div class="node-step-index">Phase 7</div>
+          <div class="node-title">Grand Finale</div>
+        </div>
+      </div>
+
+      <!-- Dynamic Interactive Hackathon Experience Panel -->
+      <div class="bootcamp-dynamic-stage" id="bootcamp-dynamic-stage-panel">
+        <!-- Rendered dynamically by js/main.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── SECTION 6: STUDENT PROJECT SHOWCASE (TOP 10) ─── -->
+  <section id="student-projects" class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge"><span class="badge-dot"></span> Verified Working Software</span>
+        <h2 class="section-title">WHAT ARE STUDENTS BUILDING?</h2>
+        <p class="section-subtitle">
+          Explore how our students are experimenting with AI to address business problems across FinTech, D2C, MedTech, and Logistics.
+        </p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="filter-tabs-wrapper">
+        <button class="filter-tab project-filter-tab active" data-track="all">All Tracks (10)</button>
+        <button class="filter-tab project-filter-tab" data-track="Open Innovation">Open Innovation (4)</button>
+        <button class="filter-tab project-filter-tab" data-track="FinTech">FinTech (1)</button>
+        <button class="filter-tab project-filter-tab" data-track="D2C">D2C & E-Commerce (2)</button>
+        <button class="filter-tab project-filter-tab" data-track="Medtech">MedTech & Healthcare (2)</button>
+        <button class="filter-tab project-filter-tab" data-track="Edtech">EdTech & Learning (1)</button>
+      </div>
+
+      <!-- Projects Grid (Injected via JS) -->
+      <div class="projects-grid" id="projects-grid-container">
+        <!-- Rendered via js/main.js from assets/data/projects.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 7: WHAT DOES THIS MEAN FOR RECRUITERS? ─── -->
+  <section id="recruiter-matrix" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge"><span class="badge-dot"></span> Talent Value Proposition</span>
+        <h2 class="section-title">WHAT CAN OUR STUDENTS BRING TO YOUR ORGANISATION?</h2>
+        <p class="section-subtitle">
+          A capability breakdown designed for CHROs, Talent Acquisition Heads, and Technology Leaders.
+        </p>
+      </div>
+
+      <div class="matrix-container">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th style="width: 32%;">Enterprise Capability</th>
+              <th style="width: 68%;">What It Means In Practice</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="capability-title">
+                  <span class="capability-badge">🤖</span> Generative AI
+                </div>
+              </td>
+              <td>Using AI for deep research, competitor synthesis, communication, and high-velocity workflow productivity.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="capability-title">
+                  <span class="capability-badge">🧠</span> AI Agents
+                </div>
+              </td>
+              <td>Designing task-specific, condition-triggered AI solutions that query databases and handle operational tasks.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="capability-title">
+                  <span class="capability-badge">⚡</span> Agentic AI
+                </div>
+              </td>
+              <td>Understanding multi-step AI reasoning loops, tool-calling pipelines, and autonomous system coordination.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="capability-title">
+                  <span class="capability-badge">🎯</span> Business Problem Solving
+                </div>
+              </td>
+              <td>Identifying where AI creates defensible business value versus where simple heuristics or rule-based software suffice.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="capability-title">
+                  <span class="capability-badge">🛠️</span> AI Prototyping
+                </div>
+              </td>
+              <td>Turning an executive concept into an interactive, demonstrable solution with real UX and deterministic math splits.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="capability-title">
+                  <span class="capability-badge">📊</span> Data & Analytics
+                </div>
+              </td>
+              <td>Grounding AI conclusions in factual quantitative metrics to eliminate hallucinations and support executive decisions.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="capability-title">
+                  <span class="capability-badge">🎙️</span> Communication
+                </div>
+              </td>
+              <td>Presenting AI product architecture, unit economics, and data ethics clearly to board-level and corporate stakeholders.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="capability-title">
+                  <span class="capability-badge">🤝</span> Teamwork
+                </div>
+              </td>
+              <td>Building complex AI systems collaboratively in cross-functional pods with shared accountability and rapid iteration.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="matrix-quote-callout">
+        <h3>“We are developing students who can sit between business and technology.”</h3>
+        <p>Bridging the critical talent gap between technical engineers who build models and corporate leaders who demand ROI.</p>
+        <div style="margin-top: 16px;">
+          <a href="brochure.html" target="_blank" class="btn btn-outline-glow btn-sm">📄 Open Printable A4 Tri-Fold Brochure (PDF) →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── SECTION 8 & 9: PEOPLE & ADVISORY BOARD ─── -->
+  <section id="leadership-board" class="section section-alt">
+    <div class="container">
+      
+      <!-- Patrons of the AI Centre of Excellence -->
+      <div class="section-header">
+        <span class="badge"><span class="badge-dot"></span> Institutional Patrons</span>
+        <h2 class="section-title">PATRONS OF THE AI CENTRE OF EXCELLENCE</h2>
+        <p class="section-subtitle">
+          Guiding institutional vision, academic rigor, and frontier industry alignment across BIMTECH.
+        </p>
+      </div>
+
+      <div class="patrons-grid">
+        
+        <!-- Patron 1: Prof. Prabina Rajib -->
+        <div class="patron-card">
+          <div>
+            <div class="patron-header">
+              <div class="patron-photo-wrapper">
+                <img src="assets/images/prabina_rajib.png" alt="Prof. (Dr.) Prabina Rajib" class="patron-photo" />
+              </div>
+              <div class="patron-meta">
+                <span class="patron-badge-tag chief">★ Chief Patron</span>
+                <h3 class="patron-name">Prof. (Dr.) Prabina Rajib</h3>
+                <div class="patron-role">Director, BIMTECH</div>
+              </div>
+            </div>
+            <p class="patron-bio">
+              Ph.D. in Finance from IIT Kharagpur; former Professor and Dean at Vinod Gupta School of Management (VGSoM), IIT Kharagpur. Member Secretary of the BIMTECH Board of Governors. Championing hands-on AI adoption, academic digitization, and strategic corporate partnerships.
+            </p>
+          </div>
+          <a href="https://www.bimtech.ac.in/faculty/prabina-rajib" target="_blank" rel="noopener noreferrer" class="patron-link-btn">
+            View BIMTECH Faculty Profile ↗
+          </a>
+        </div>
+
+        <!-- Patron 2: Prof. Pankaj Priya -->
+        <div class="patron-card">
+          <div>
+            <div class="patron-header">
+              <div class="patron-photo-wrapper">
+                <img src="assets/images/pankaj_priya.webp" alt="Prof. (Dr.) Pankaj Priya" class="patron-photo" />
+              </div>
+              <div class="patron-meta">
+                <span class="patron-badge-tag">Patron</span>
+                <h3 class="patron-name">Prof. (Dr.) Pankaj Priya</h3>
+                <div class="patron-role">Deputy Director & Dean (Academics)</div>
+              </div>
+            </div>
+            <p class="patron-bio">
+              Ph.D., Alumnus of BIT Mesra and IIT Delhi; Member of the Board of Governors at BIMTECH. Professor of Marketing pioneering digital curriculum integration, e-retailing analytics, and academic innovation across PGDM programs.
+            </p>
+          </div>
+          <a href="https://www.bimtech.ac.in/faculty/pankaj-priya" target="_blank" rel="noopener noreferrer" class="patron-link-btn">
+            View BIMTECH Faculty Profile ↗
+          </a>
+        </div>
+
+        <!-- Patron 3: Prof. Pooja Misra -->
+        <div class="patron-card">
+          <div>
+            <div class="patron-header">
+              <div class="patron-photo-wrapper">
+                <img src="assets/images/pooja_misra.webp" alt="Prof. (Dr.) Pooja Misra" class="patron-photo" />
+              </div>
+              <div class="patron-meta">
+                <span class="patron-badge-tag">Patron</span>
+                <h3 class="patron-name">Prof. (Dr.) Pooja Misra</h3>
+                <div class="patron-role">Chairperson – Economics Area</div>
+              </div>
+            </div>
+            <p class="patron-bio">
+              Ph.D., Masters in Business Economics (University of Delhi); 28+ years of combined experience across multinational banking (American Express, Standard Chartered, Lazard Creditcapital) and academia. Leading data-driven economic modeling and business environment intelligence.
+            </p>
+          </div>
+          <a href="https://www.bimtech.ac.in/faculty/pooja-misra" target="_blank" rel="noopener noreferrer" class="patron-link-btn">
+            View BIMTECH Faculty Profile ↗
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Leadership: Convenor -->
+      <div class="section-header" style="margin-top: 30px;">
+        <span class="badge"><span class="badge-dot"></span> Centre Leadership</span>
+        <h2 class="section-title">CENTRE LEADERSHIP</h2>
+        <p class="section-subtitle">
+          Leading the execution of practical AI learning, student innovation, and industry problem-solving.
+        </p>
+      </div>
+
+      <div class="leadership-grid">
+        <div class="leader-card">
+          <div class="leader-photo-wrapper">
+            <img src="assets/images/backdrop.png" alt="Dr. Nikhil Srivastava" class="leader-photo" />
+          </div>
+          <div>
+            <h3 class="leader-name">Dr. Nikhil Srivastava</h3>
+            <div class="leader-role">Convenor, AI Centre of Excellence — BIMTECH</div>
+            <p class="leader-bio">
+              Dr. Nikhil Srivastava leads the AI Centre of Excellence at BIMTECH, focusing on the intersection of <strong>AI, finance, business analytics and management education</strong>. The Centre's initiatives focus on practical AI learning, student innovation, industry engagement and AI-enabled problem solving.
+            </p>
+            <a href="#recruiter-cta" class="btn btn-outline-glow btn-sm">Connect With The Convenor →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Advisory Board -->
+      <div class="section-header" style="margin-top: 40px;">
+        <span class="badge"><span class="badge-dot"></span> Global Industry Council</span>
+        <h2 class="section-title">AI ADVISORY BOARD</h2>
+        <p class="section-subtitle">
+          Senior technology directors, product executives, and entrepreneurs anchoring our curriculum in global industry reality.
+        </p>
+      </div>
+
+      <div class="advisory-grid">
+        
+        <!-- Board Member 1 -->
+        <div class="advisor-card" data-advisor="msci">
+          <div>
+            <div class="advisor-avatar-box">VG</div>
+            <h3 class="advisor-name">Varoon Govil</h3>
+            <div class="advisor-org">Executive Director, MSCI Inc.</div>
+            <p class="advisor-desc">
+              Global executive leadership in enterprise technology, quantitative financial analytics, and institutional AI frameworks.
+            </p>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px;">
+            <span class="advisor-expand-btn">View Profile Details →</span>
+            <a href="https://www.linkedin.com/in/varoon-govil-b66b674/" target="_blank" rel="noopener noreferrer" style="font-size:0.75rem; color:#38bdf8;" onclick="event.stopPropagation()">LinkedIn ↗</a>
+          </div>
+        </div>
+
+        <!-- Board Member 2 -->
+        <div class="advisor-card" data-advisor="dunnhumby">
+          <div>
+            <div class="advisor-avatar-box">NG</div>
+            <h3 class="advisor-name">Neeraj Gehani</h3>
+            <div class="advisor-org">Global Product Director – AI/ML Products & Platform, dunnhumby</div>
+            <p class="advisor-desc">
+              Pioneering customer science platforms, retail media AI, personalization algorithms, and scalable business ML solutions.
+            </p>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px;">
+            <span class="advisor-expand-btn">View Profile Details →</span>
+            <a href="https://www.linkedin.com/in/neeraj-gehani-3a5ab61/" target="_blank" rel="noopener noreferrer" style="font-size:0.75rem; color:#38bdf8;" onclick="event.stopPropagation()">LinkedIn ↗</a>
+          </div>
+        </div>
+
+        <!-- Board Member 3 -->
+        <div class="advisor-card" data-advisor="xdlinx">
+          <div>
+            <div class="advisor-avatar-box">SM</div>
+            <h3 class="advisor-name">Dr. Saumendra Mohanty</h3>
+            <div class="advisor-org">Distinguished AI Researcher & Consultant | Hon. Professor of Practice</div>
+            <p class="advisor-desc">
+              Renowned AI technologist, researcher, and educator; former Director Govt Business at ValueFirst (Tanla); championing autonomous AI sandboxes.
+            </p>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px;">
+            <span class="advisor-expand-btn">View Profile Details →</span>
+            <a href="https://www.linkedin.com/in/dr-saumendra-mohanty-84933a18/" target="_blank" rel="noopener noreferrer" style="font-size:0.75rem; color:#38bdf8;" onclick="event.stopPropagation()">LinkedIn ↗</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── SECTION 10: AI CENTRE IN ACTION (GALLERY) ─── -->
+  <section id="action-gallery" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge"><span class="badge-dot"></span> Photographic Evidence</span>
+        <h2 class="section-title">AI CENTRE IN ACTION</h2>
+        <p class="section-subtitle">
+          Real moments from the AI Build Bootcamp, 48-hour prototyping sprints, mentoring rounds, and the Grand Finale.
+        </p>
+      </div>
+
+      <!-- Gallery Filter Tabs -->
+      <div class="gallery-filter-bar">
+        <button class="filter-tab gallery-filter-tab active" data-cat="all">All Moments (35+)</button>
+        <button class="filter-tab gallery-filter-tab" data-cat="bootcamp">Bootcamp & Workshops</button>
+        <button class="filter-tab gallery-filter-tab" data-cat="prototyping">Prototyping & Mentoring</button>
+        <button class="filter-tab gallery-filter-tab" data-cat="pitches">Pitches & Live Demos</button>
+        <button class="filter-tab gallery-filter-tab" data-cat="finale">Grand Finale & Awards</button>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="gallery-grid" id="gallery-grid-container">
+        <!-- Rendered via js/main.js from assets/data/gallery.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 11: ASK OUR AI CENTRE ─── -->
+  <section id="ask-ai" class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge"><span class="badge-dot"></span> Conversational Showcase</span>
+        <h2 class="section-title">ASK OUR AI CENTRE</h2>
+        <p class="section-subtitle">
+          An interactive conversational demonstration. Click a topic or ask a question to explore how the Centre operates.
+        </p>
+      </div>
+
+      <div class="ask-ai-card">
+        <div class="ask-ai-header">
+          <div class="ask-avatar-mini">
+            <img src="assets/images/ai_joseph.png" alt="AI Joseph" />
+          </div>
+          <div class="ask-heading-group">
+            <h3>Interactive Concierge</h3>
+            <p>What would you like to know about the BIMTECH AI Centre?</p>
+          </div>
+        </div>
+
+        <div class="quick-topics-row">
+          <button class="quick-topic-btn" data-topic="talent">🎓 Student Talent</button>
+          <button class="quick-topic-btn" data-topic="projects">🚀 AI Projects</button>
+          <button class="quick-topic-btn" data-topic="collaboration">🤝 Industry Collaboration</button>
+          <button class="quick-topic-btn" data-topic="recruitment">💼 Recruitment</button>
+          <button class="quick-topic-btn" data-topic="executive">📚 Executive Programmes</button>
+          <button class="quick-topic-btn" data-topic="workshops">🛠️ AI Workshops</button>
+        </div>
+
+        <div class="chat-response-window" id="ai-chat-output">
+          <div class="ai-response-content">
+            <p><strong>AI Joseph:</strong> “Welcome to the BIMTECH AI Centre of Excellence. Choose any topic above, or type a custom question below to discover how our management students are building with AI.”</p>
+          </div>
+        </div>
+
+        <div class="ask-input-row">
+          <input type="text" id="ask-text-input" class="ask-text-input" placeholder="Type a question for recruiters (e.g. 'How can we recruit interns?' or 'Can we sponsor a challenge?')..." />
+          <button id="ask-submit-btn" class="btn btn-primary">Ask Joseph →</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── SECTION 12: THE RECRUITER CTA ─── -->
+  <section id="recruiter-cta" class="section">
+    <div class="container">
+      <div class="recruiter-cta-wrapper">
+        <div class="section-header" style="margin-bottom: 24px;">
+          <span class="badge"><span class="badge-dot"></span> Strategic Partnership</span>
+          <h2 class="section-title">BRING US YOUR BUSINESS CHALLENGE</h2>
+          <p class="section-subtitle" style="color: #cbd5e1;">
+            Have a business problem where AI could create value? <br />
+            <strong>Let's turn it into an AI learning and innovation opportunity.</strong>
+          </p>
+        </div>
+
+        <div class="cta-tracks-grid">
+          
+          <div class="cta-track-card" data-mode="recruit">
+            <div class="cta-track-badge">🎯 RECRUIT</div>
+            <h4 style="color:#fff; margin-bottom: 8px; font-size:1.15rem;">Hire AI-Enabled Talent</h4>
+            <p class="cta-track-desc">
+              Connect with management professionals who understand Generative AI, agentic automation, and real-world execution.
+            </p>
+          </div>
+
+          <div class="cta-track-card" data-mode="collaborate">
+            <div class="cta-track-badge">💡 COLLABORATE</div>
+            <h4 style="color:#fff; margin-bottom: 8px; font-size:1.15rem;">Industry Challenge Sandbox</h4>
+            <p class="cta-track-desc">
+              Bring an authentic business friction point to our students and faculty to develop working AI prototypes.
+            </p>
+          </div>
+
+          <div class="cta-track-card" data-mode="partner">
+            <div class="cta-track-badge">🤝 PARTNER</div>
+            <h4 style="color:#fff; margin-bottom: 8px; font-size:1.15rem;">Workshops & Executive Labs</h4>
+            <p class="cta-track-desc">
+              Develop joint AI bootcamps, executive education masterclasses, or corporate innovation hackathons.
+            </p>
+          </div>
+
+        </div>
+
+        <div style="text-align: center;">
+          <button class="btn btn-primary" onclick="openCtaModal('collaborate')">
+            Connect With BIMTECH AI Centre of Excellence →
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 13: CLOSING AI JOSEPH EXPERIENCE ─── -->
+  <section class="section section-alt">
+    <div class="container">
+      
+      <div class="closing-video-banner">
+        <div class="closing-avatar-frame">
+          <img src="assets/images/ai_joseph.png" alt="AI Joseph Closing Message" />
+        </div>
+        
+        <div class="closing-script-block">
+          <span class="badge"><span class="badge-dot"></span> Closing Reflection • AI Joseph</span>
+          <p class="closing-quote-text">
+            “You have seen what we are building at the BIMTECH AI Centre of Excellence. <br />
+            But the most interesting part is still ahead. <br />
+            <strong>We are looking for organisations that want to build with us.</strong> <br />
+            If you have a business problem, an AI challenge or are looking for AI-ready management talent, <strong>let's start a conversation.</strong>”
+          </p>
+          <div>
+            <button id="play-closing-ai" class="btn btn-primary">
+              <span class="icon">▶</span> Play Joseph's Closing Call
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Final Banner -->
+      <div style="text-align: center; padding: 20px 0;">
+        <h2 style="font-size: clamp(2rem, 3.5vw, 2.8rem); margin-bottom: 10px;">LET'S BUILD WITH AI</h2>
+        <p style="color: #38bdf8; font-size: 1.1rem; font-weight: 600; margin-bottom: 24px;">BIMTECH AI Centre of Excellence</p>
+        <button class="btn btn-primary btn-sm" onclick="openCtaModal('recruit')">
+          Connect With Us →
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── SECTION 14: 1-CLICK RECRUITER OUTREACH EMAIL KIT ─── -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge"><span class="badge-dot"></span> Corporate Outreach Kit</span>
+        <h2 class="section-title">EXECUTIVE EMAIL TEMPLATE</h2>
+        <p class="section-subtitle">
+          Designed for 1-click corporate outreach to senior recruiters, CHROs, and innovation directors.
+        </p>
+      </div>
+
+      <div class="email-kit-card">
+        <div class="email-kit-header">
+          <h4>Select Email Subject Line</h4>
+          <select id="email-subject-select" style="background: rgba(6,11,25,0.9); border: 1px solid rgba(56,189,248,0.3); color: #fff; padding: 8px 14px; border-radius: 8px; font-family: var(--font-body); outline: none;">
+            <!-- Populated via js/main.js -->
+          </select>
+        </div>
+
+        <div class="email-preview-box" id="email-body-text">
+Dear [Name],
+
+Artificial Intelligence is changing the way organisations work—and the skills required from tomorrow's management professionals.
+
+At BIMTECH, we are building an ecosystem where students don't just learn about AI. They build with it.
+
+Through our AI Centre of Excellence, students are working with Generative AI, AI Agents and Agentic AI to explore real business problems and develop AI-enabled prototypes.
+
+We have created an interactive AI showcase to give you a glimpse of what we are building:
+
+▶ MEET THE BIMTECH AI CENTRE OF EXCELLENCE
+An interactive AI experience featuring our students, projects, faculty and AI Advisory Board.
+
+We would be delighted to explore opportunities for recruitment, industry projects and AI collaboration.
+
+Warm regards,
+Dr. Nikhil Srivastava
+Convenor, AI Centre of Excellence
+BIMTECH
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 12px; flex-wrap: wrap;">
+          <button id="copy-email-btn" class="btn btn-secondary btn-sm">📋 Copy Email to Clipboard</button>
+          <button id="open-email-client-btn" class="btn btn-primary btn-sm">✉️ Open in Mail Client</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── INTERACTIVE GENERAL MODAL (DRAWER) ─── -->
+  <div class="interactive-modal" id="general-modal">
+    <div class="modal-content-box">
+      <button class="modal-close-btn" aria-label="Close modal">✕</button>
+      <div id="modal-body-container">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
   </div>
 
-  <!-- ══════════════════════ CONTROLS ══════════════════════ -->
-  <div id="controls">
-    <button class="ctrl-btn" id="btn-prev" onclick="changeSlide(-1)" disabled>← Prev</button>
-    <div id="progress-dots"></div>
-    <div id="slide-counter">01 / 05</div>
-    <button class="ctrl-btn primary" id="btn-next" onclick="changeSlide(1)">Next →</button>
-    <button class="ctrl-btn" onclick="toggleFullscreen()" title="Fullscreen">⛶</button>
+  <!-- ─── LIGHTBOX MODAL (PHOTO GALLERY) ─── -->
+  <div class="lightbox-modal" id="lightbox-modal">
+    <button class="lightbox-close-btn" id="lightbox-close-btn">✕</button>
+    <button class="lightbox-btn lightbox-prev" id="lightbox-prev-btn">‹</button>
+    <button class="lightbox-btn lightbox-next" id="lightbox-next-btn">›</button>
+    
+    <div class="lightbox-container">
+      <div class="lightbox-image-wrapper">
+        <img src="" alt="Enlarged gallery photo" id="lightbox-active-img" class="lightbox-img" />
+      </div>
+      <div class="lightbox-info-bar">
+        <div class="lightbox-caption-title" id="lightbox-caption">Caption Title</div>
+        <div class="lightbox-desc" id="lightbox-desc">Caption Description</div>
+      </div>
+    </div>
   </div>
-</div>
 
-<script>
-  // ─── STATE ──────────────────────────────────────────────────────────
-  let currentSlide = 0;
-  const totalSlides = 5;
-  let isSpeaking = false;
-  let speechEnabled = false;
-  const presentationAudio = new Audio();
+  <!-- ─── FOOTER ─── -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="nav-brand" style="margin-bottom: 16px;">
+            <div class="brand-logo-badge">AI</div>
+            <div class="brand-text-col">
+              <span class="brand-title">BIMTECH</span>
+              <span class="brand-sub">AI Centre of Excellence</span>
+            </div>
+          </div>
+          <p style="color: #94a3b8; max-width: 380px;">
+            Birla Institute of Management Technology (BIMTECH) is pioneering practical, builder-centric AI education for the management leaders of tomorrow.
+          </p>
+        </div>
 
-  // ─── SLIDES DATA ─────────────────────────────────────────────────────
-  const slides = document.querySelectorAll('.slide');
-  const btnPrev = document.getElementById('btn-prev');
-  const btnNext = document.getElementById('btn-next');
-  const counter = document.getElementById('slide-counter');
-  const soundBar = document.getElementById('sound-bar');
-  const speechText = document.getElementById('speech-text');
-  const btnSpeak = document.getElementById('btn-speak');
+        <div class="footer-col">
+          <h5>Navigation</h5>
+          <ul class="footer-links">
+            <li><a href="#hero">Overview</a></li>
+            <li><a href="#what-we-do">What We Do</a></li>
+            <li><a href="#student-projects">Top 10 Finalist Projects</a></li>
+            <li><a href="#recruiter-matrix">Recruiter Capability Matrix</a></li>
+            <li><a href="#action-gallery">Action Photo Gallery</a></li>
+          </ul>
+        </div>
 
-  // ─── PROGRESS DOTS ───────────────────────────────────────────────────
-  const dotsContainer = document.getElementById('progress-dots');
-  for (let i = 0; i < totalSlides; i++) {
-    const d = document.createElement('div');
-    d.className = 'prog-dot' + (i === 0 ? ' active' : '');
-    d.setAttribute('id', 'dot-' + i);
-    d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-    d.onclick = () => goToSlide(i);
-    dotsContainer.appendChild(d);
-  }
+        <div class="footer-col">
+          <h5>Connect With Us</h5>
+          <ul class="footer-links">
+            <li><span style="color: #cbd5e1;">Convenor:</span> Dr. Nikhil Srivastava</li>
+            <li><span style="color: #cbd5e1;">Institution:</span> BIMTECH, Greater Noida</li>
+            <li><a href="#recruiter-cta" style="color: #38bdf8;">→ Submit Recruiter Inquiry</a></li>
+          </ul>
+        </div>
+      </div>
 
-  // ─── SLIDE NAVIGATION ────────────────────────────────────────────────
-  function changeSlide(dir) {
-    const next = currentSlide + dir;
-    if (next < 0 || next >= totalSlides) return;
-    goToSlide(next);
-  }
+      <div class="footer-bottom-bar">
+        <span>© 2026 BIMTECH AI Centre of Excellence. All rights reserved.</span>
+        <span>Built for Executive Recruiters & Industry Partners</span>
+      </div>
+    </div>
+  </footer>
 
-  function goToSlide(index) {
-    stopSpeech();
-    slides[currentSlide].classList.remove('active');
-    document.getElementById('dot-' + currentSlide).classList.remove('active');
-    currentSlide = index;
-    slides[currentSlide].classList.add('active');
-    document.getElementById('dot-' + currentSlide).classList.add('active');
-    btnPrev.disabled = currentSlide === 0;
-    btnNext.disabled = currentSlide === totalSlides - 1;
-    counter.textContent = String(currentSlide + 1).padStart(2, '0') + ' / ' + String(totalSlides).padStart(2, '0');
-
-    if (speechEnabled) {
-      speakSlide();
-    } else {
-      typeText(slides[currentSlide].dataset.script.slice(0, 180) + '...');
-    }
-  }
-
-  // ─── SPEECH ──────────────────────────────────────────────────────────
-  const avatarRing = document.querySelector('.avatar-ring');
-  
-  presentationAudio.addEventListener('play', () => {
-    isSpeaking = true;
-    avatarRing.classList.add('speaking');
-    startProceduralLipSync();
-  });
-  
-  presentationAudio.addEventListener('pause', () => {
-    isSpeaking = false;
-    avatarRing.classList.remove('speaking');
-    stopProceduralLipSync();
-  });
-  
-  presentationAudio.addEventListener('ended', () => {
-    isSpeaking = false;
-    avatarRing.classList.remove('speaking');
-    stopProceduralLipSync();
-    
-    if (speechEnabled && currentSlide < totalSlides - 1) {
-      changeSlide(1);
-    } else if (speechEnabled && currentSlide === totalSlides - 1) {
-      speechEnabled = false;
-      btnSpeak.textContent = '▶ Play Presentation';
-      typeText('AI presentation completed successfully! Thank you for listening.');
-    }
-  });
-
-  // Procedural Lip Sync State
-  let lipSyncInterval = null;
-
-  function startProceduralLipSync() {
-    stopProceduralLipSync();
-    const bars = document.querySelectorAll('.sound-bar .bar');
-    let syllableTimer = 0;
-    let state = 'speak';
-    lipSyncInterval = setInterval(() => {
-      if (!isSpeaking) { stopProceduralLipSync(); return; }
-      syllableTimer -= 50;
-      if (syllableTimer <= 0) {
-        if (state === 'speak') {
-          if (Math.random() < 0.22) { state = 'pause'; syllableTimer = 100 + Math.random() * 120; }
-          else { syllableTimer = 140 + Math.random() * 200; }
-        } else { state = 'speak'; syllableTimer = 180 + Math.random() * 260; }
-      }
-      bars.forEach((bar, idx) => {
-        const cf = 1 - Math.abs(idx - 3) / 4;
-        const h = state === 'speak' ? 4 + Math.random() * 22 * cf : 3 + Math.random() * 2;
-        bar.style.height = `${h}px`;
-        bar.style.opacity = state === 'speak' ? '1' : '0.4';
-      });
-    }, 50);
-  }
-
-  function stopProceduralLipSync() {
-    if (lipSyncInterval) { clearInterval(lipSyncInterval); lipSyncInterval = null; }
-    document.querySelectorAll('.sound-bar .bar').forEach(b => {
-      b.style.height = '4px'; b.style.opacity = '0.3';
-    });
-  }
-
-  function speakSlide() {
-    presentationAudio.src = './slide_' + (currentSlide + 1) + '.mp3';
-    
-    // Type the caption text
-    const script = slides[currentSlide].dataset.script;
-    if (script) typeText(script);
-
-    presentationAudio.play().catch(e => {
-      console.error("Audio playback failed:", e);
-      speechText.innerHTML = '<span style="color: #ff6b6b; font-weight: bold;">⚠️ Audio playback blocked by browser! Please click anywhere on the page and try again.</span>';
-      speechEnabled = false;
-      btnSpeak.textContent = '▶ Play Presentation';
-    });
-  }
-
-  function stopSpeech() {
-    presentationAudio.pause();
-    isSpeaking = false;
-    avatarRing.classList.remove('speaking');
-    stopProceduralLipSync();
-  }
-
-  function toggleSpeak() {
-    speechEnabled = !speechEnabled;
-    btnSpeak.textContent = speechEnabled ? '⏹ Pause Presentation' : '▶ Play Presentation';
-    if (speechEnabled) {
-      speakSlide();
-    } else {
-      stopSpeech();
-    }
-  }
-
-  // ─── TYPE WRITER EFFECT ──────────────────────────────────────────────
-  let typeInterval = null;
-  function typeText(text) {
-    if (typeInterval) clearInterval(typeInterval);
-    speechText.innerHTML = '';
-    const cursor = document.createElement('span');
-    cursor.className = 'cursor';
-    let i = 0;
-    const shortText = text.length > 280 ? text.slice(0, 280) + '…' : text;
-    typeInterval = setInterval(() => {
-      if (i >= shortText.length) {
-        clearInterval(typeInterval);
-        speechText.appendChild(cursor);
-        return;
-      }
-      speechText.textContent += shortText[i];
-      i++;
-    }, 28);
-  }
-
-  // ─── KEYBOARD ────────────────────────────────────────────────────────
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
-    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   changeSlide(-1);
-    if (e.key === 'F5' || e.key === 'f') toggleFullscreen();
-    if (e.key === 's' || e.key === 'S') toggleSpeak();
-  });
-
-  // ─── FULLSCREEN ──────────────────────────────────────────────────────
-  function toggleFullscreen() {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(() => {});
-    } else {
-      document.exitFullscreen().catch(() => {});
-    }
-  }
-
-  // ─── PARTICLES ───────────────────────────────────────────────────────
-  const canvas = document.getElementById('particle-canvas');
-  const ctx = canvas.getContext('2d');
-  let particles = [];
-
-  function resizeCanvas() {
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-
-  class Particle {
-    constructor() { this.reset(); }
-    reset() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.vx = (Math.random() - .5) * .4;
-      this.vy = (Math.random() - .5) * .4;
-      this.r = Math.random() * 2 + .5;
-      this.alpha = Math.random() * .5 + .1;
-      this.color = Math.random() > .5 ? '0,212,255' : '124,58,237';
-    }
-    update() {
-      this.x += this.vx; this.y += this.vy;
-      if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
-    }
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${this.color},${this.alpha})`;
-      ctx.fill();
-    }
-  }
-
-  for (let i = 0; i < 120; i++) particles.push(new Particle());
-
-  function drawConnections() {
-    const maxDist = 100;
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < maxDist) {
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(0,212,255,${.15 * (1 - dist/maxDist)})`;
-          ctx.lineWidth = .5;
-          ctx.stroke();
-        }
-      }
-    }
-  }
-
-  function animParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => { p.update(); p.draw(); });
-    drawConnections();
-    requestAnimationFrame(animParticles);
-  }
-  animParticles();
-
-  // ─── INIT ─────────────────────────────────────────────────────────────
-  typeText("Welcome! Click 🔊 Narrate to hear me present each slide. Use the controls below or arrow keys to navigate. Let's begin!");
-</script>
+  <!-- Scripts: Data & Main JS -->
+  <script src="assets/data/projects.js"></script>
+  <script src="assets/data/gallery.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
